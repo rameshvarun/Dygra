@@ -39,14 +39,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Libraries\boost_1_54_0;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Libraries\boost_1_54_0\stage\lib;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Boost\msvc_10_32\boost_1_54_0;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Libraries\SFML-2.0-rc\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;C:\Libraries\SFML-2.0-rc\include;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Release;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -78,7 +78,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -89,6 +89,7 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dependencies.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="objects.h" />
     <ClInclude Include="tinyxml2.h" />

@@ -17,6 +17,8 @@ std::string file_to_string(const char* filename)
 	std::string result;
 	result.append(buffer, length_read);
 
+	delete buffer;
+
 	PHYSFS_close( file );
 
 	return result;

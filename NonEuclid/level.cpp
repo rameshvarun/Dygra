@@ -1,10 +1,13 @@
 #include "level.h"
 #include "tinyxml2.h"
 
-#include "physfs.h"
+
 #include "util.h"
 
 using namespace tinyxml2;
+
+#include "dependencies.h"
+
 
 Level::Level()
 {
@@ -23,6 +26,8 @@ bool replace(std::string& str, const std::string& from, const std::string& to)
 
 void Level::BuildShader(sf::Vector2f resolution)
 {
+	BOOST_LOG_TRIVIAL(debug) << "Building shader...";
+
 	//Read template glsl into string
 	std::string glsl = file_to_string( "shaders/template.frag" );
 
@@ -66,14 +71,21 @@ void Level::BuildShader(sf::Vector2f resolution)
 
 	replace(glsl, "{{ABERRATION}}", code3.str());
 
+	
+#ifdef _DEBUG
 	std::ofstream out;
 	out.open("output.frag");
 	out << glsl;
 	out.close();
 
+	BOOST_LOG_TRIVIAL(debug) << "Output.frag written with resulting shader code.";
+#endif
+
 
 	shader->loadFromMemory(glsl, sf::Shader::Fragment);
 	shader->setParameter("resolution", resolution);
+
+	BOOST_LOG_TRIVIAL(debug) << "Shader has been built...";
 }
 
 void Level::SetCamera(sf::Vector3f pos, sf::Vector3f up, sf::Vector3f look)
@@ -106,7 +118,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 void Level::LoadXML(const char* filename)
 {
-	
+	BOOST_LOG_TRIVIAL(debug) << "Loading map " << filename;
 
 	XMLDocument doc;
 	doc.Parse( file_to_string(filename).c_str() );
@@ -127,7 +139,8 @@ void Level::LoadXML(const char* filename)
 			plane->BoolAttribute("uniform"),
 			plane->BoolAttribute("recieve")
 			);
-		std::cout << obj->name << std::endl;
+
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded plane " << obj->name;
 		
 		this->AddObject(obj);
 	}
@@ -147,7 +160,8 @@ void Level::LoadXML(const char* filename)
 			sphere->BoolAttribute("cast"),
 			sphere->BoolAttribute("recieve")
 			);
-		std::cout << obj->name << std::endl;
+
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded sphere " << obj->name;
 		
 		this->AddObject(obj);
 	}
@@ -172,7 +186,8 @@ void Level::LoadXML(const char* filename)
 			box->BoolAttribute("recieve")
 			);
 
-		std::cout << obj->name << std::endl;
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded box " << obj->name;
+
 		this->AddObject(obj);
 	}
 
@@ -191,7 +206,8 @@ void Level::LoadXML(const char* filename)
 
 		BoxAberration *obj = new BoxAberration(name, minf, maxf, scalef, boxab->BoolAttribute("uniform"));
 
-		std::cout << obj->name << std::endl;
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded Box Aberration " << obj->name;
+
 		this->AddObject(obj);
 	}
 
@@ -215,7 +231,8 @@ void Level::LoadXML(const char* filename)
 
 			sphereab->BoolAttribute("uniform")
 			);
-		std::cout << obj->name << std::endl;
+		
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded Sphere Aberration " << obj->name;
 		
 		this->AddObject(obj);
 	}
@@ -238,10 +255,14 @@ void Level::LoadXML(const char* filename)
 			
 			sphereportal->BoolAttribute("uniform")
 			);
-		std::cout << obj->name << std::endl;
+		
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded Sphere Portal " << obj->name;
 		
 		this->AddObject(obj);
 	}
+
+
+	BOOST_LOG_TRIVIAL(debug) << "Finished loading map " << filename;
 
 	
 }

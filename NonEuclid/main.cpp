@@ -1,24 +1,31 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
 
-#include<iostream>
-#include<math.h>
-
-using namespace sf;
+#include "dependencies.h"
 
 
 #include "level.h"
 
-#include "physfs.h"
-
 
 int main()
 {
+	//Log to a file
+	//boost::log::add_file_log("sample.log");
+
+#ifdef _DEBUG
+	BOOST_LOG_TRIVIAL(info) << "Running game in Debug mode.";
+#else
+	boost::log::core::get()->set_filter
+    (
+        boost::log::trivial::severity >= boost::log::trivial::info
+    );
+#endif
+	
+
 	PHYSFS_init(NULL);
 	PHYSFS_mount( "../content/", "", 1 );
 
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
+	BOOST_LOG_TRIVIAL(debug) << "Initialized filesystem.";
 
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
 	window.setVerticalSyncEnabled(true);
 
 	sf::RectangleShape shape = sf::RectangleShape(sf::Vector2f(window.getSize().x,window.getSize().y));
@@ -84,6 +91,9 @@ int main()
 	Mouse::setPosition(sf::Vector2i(window.getSize().x/2,window.getSize().y/2), window);
 
 	sf::Clock clock;
+
+	BOOST_LOG_TRIVIAL(debug) << "Starting game loop.";
+
     while (window.isOpen())
 	{
 		sf::Event event;
