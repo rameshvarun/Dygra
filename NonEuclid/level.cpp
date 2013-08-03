@@ -1,6 +1,9 @@
 #include "level.h"
 #include "tinyxml2.h"
 
+#include "physfs.h"
+#include "util.h"
+
 using namespace tinyxml2;
 
 Level::Level()
@@ -21,9 +24,7 @@ bool replace(std::string& str, const std::string& from, const std::string& to)
 void Level::BuildShader(sf::Vector2f resolution)
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\template.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/template.frag" );
 
 	std::stringstream code1;
 	std::stringstream code2;
@@ -40,9 +41,7 @@ void Level::BuildShader(sf::Vector2f resolution)
 
 		if((*it).second->type == "sphereaberration")
 		{
-			std::ifstream aberrationstream("shaders\\sphereaberrationinside.frag");
-			std::string aberration( (std::istreambuf_iterator<char>(aberrationstream) ), 
-				(std::istreambuf_iterator<char>()    ) );
+			std::string aberration = file_to_string( "shaders/sphereaberrationinside.frag" );
 
 			replaceAll(aberration, "{{NAME}}", (*it).second->name);
 
@@ -51,9 +50,7 @@ void Level::BuildShader(sf::Vector2f resolution)
 
 		if((*it).second->type == "boxaberration")
 		{
-			std::ifstream aberrationstream("shaders\\boxaberrationinside.frag");
-			std::string aberration( (std::istreambuf_iterator<char>(aberrationstream) ), 
-				(std::istreambuf_iterator<char>()    ) );
+			std::string aberration = file_to_string( "shaders/boxaberrationinside.frag" );
 
 			replaceAll(aberration, "{{NAME}}", (*it).second->name);
 
@@ -109,8 +106,10 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 void Level::LoadXML(const char* filename)
 {
+	
+
 	XMLDocument doc;
-	doc.LoadFile( filename );
+	doc.Parse( file_to_string(filename).c_str() );
 
 	XMLElement* scene = doc.FirstChildElement("scene");
 
@@ -243,4 +242,6 @@ void Level::LoadXML(const char* filename)
 		
 		this->AddObject(obj);
 	}
+
+	
 }

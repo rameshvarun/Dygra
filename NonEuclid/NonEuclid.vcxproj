@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SFML-2.0-rc\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Libraries\boost_1_54_0;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Libraries\boost_1_54_0\stage\lib;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,11 +86,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="level.h" />
     <ClInclude Include="objects.h" />
     <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

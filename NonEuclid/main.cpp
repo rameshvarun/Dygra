@@ -9,8 +9,14 @@ using namespace sf;
 
 #include "level.h"
 
+#include "physfs.h"
+
+
 int main()
 {
+	PHYSFS_init(NULL);
+	PHYSFS_mount( "../content/", "", 1 );
+
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
 
 	window.setVerticalSyncEnabled(true);

@@ -1,5 +1,8 @@
 #include "objects.h"
 
+#include "physfs.h"
+#include "util.h"
+
 void replaceAll(std::string& str, const std::string& from, const std::string& to)
 {
     if(from.empty())
@@ -23,9 +26,7 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 		{
 			if(obj->type == "sphere" && obj->castshadows)
 			{
-				std::ifstream ifshad("shaders\\sphereshadow.frag");
-				std::string shad( (std::istreambuf_iterator<char>(ifshad) ), 
-					(std::istreambuf_iterator<char>()    ) );
+				std::string shad = file_to_string( "shaders/sphereshadow.frag" );
 
 				replaceAll(shad, "{{NAME}}", obj->name);
 
@@ -34,9 +35,7 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 
 			if(obj->type == "box" && obj->castshadows)
 			{
-				std::ifstream ifshad("shaders\\boxshadow.frag");
-				std::string shad( (std::istreambuf_iterator<char>(ifshad) ), 
-					(std::istreambuf_iterator<char>()    ) );
+				std::string shad = file_to_string( "shaders/boxshadow.frag" );
 
 				replaceAll(shad, "{{NAME}}", obj->name);
 
@@ -108,9 +107,7 @@ std::string Sphere::GetDefinitionCode()
 std::string Sphere::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\spheretemplate.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl  = file_to_string( "shaders/spheretemplate.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -176,9 +173,7 @@ std::string Plane::GetDefinitionCode()
 std::string Plane::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\planetemplate.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/planetemplate.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -249,9 +244,7 @@ std::string SpherePortal::GetDefinitionCode()
 std::string SpherePortal::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\sphereportal.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/sphereportal.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -309,9 +302,7 @@ std::string SphereAberration::GetDefinitionCode()
 std::string SphereAberration::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\sphereaberration.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/sphereaberration.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -369,9 +360,7 @@ std::string Box::GetDefinitionCode()
 std::string Box::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\box.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/box.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -449,9 +438,7 @@ std::string BoxPortal::GetDefinitionCode()
 std::string BoxPortal::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\boxportal.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl = file_to_string( "shaders/boxportal.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
@@ -517,9 +504,7 @@ std::string BoxAberration::GetDefinitionCode()
 std::string BoxAberration::GetIntersectCode()
 {
 	//Read template glsl into string
-	std::ifstream ifs("shaders\\boxaberration.frag");
-	std::string glsl( (std::istreambuf_iterator<char>(ifs) ), 
-		(std::istreambuf_iterator<char>()    ) );
+	std::string glsl  = file_to_string( "shaders/boxaberration.frag" );
 
 	replaceAll(glsl, "{{NAME}}", name);
 
