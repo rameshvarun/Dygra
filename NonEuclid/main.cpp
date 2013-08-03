@@ -6,6 +6,7 @@
 
 #include "template.h"
 
+using namespace templating;
 
 int main()
 {
@@ -27,7 +28,9 @@ int main()
 
 	BOOST_LOG_TRIVIAL(debug) << "Initialized filesystem.";
 
-	templating::render("test.html");
+	Node *node = new Node();
+	node->set("name", "Name of thing");
+	templating::render("test.html", node);
 
 	exit(0);
 

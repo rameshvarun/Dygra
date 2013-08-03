@@ -86,6 +86,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects.cpp" />
     <ClCompile Include="template.cpp" />
+    <ClCompile Include="templatenode.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
