@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<scene>
+	<Camera phi="-3.13" speed="1.0" theta="2.59" x="20.4822314808" y="25.0646460511" z="7.19509129507"/>
+	<SpherePortal cast="False" name="SpherePortal1" r="1" recieve="False" reflectivity="0.0" selected="True" uniform="False" x="-5.39340333334" x2="6.32155488386" y="1" y2="1" z="5.58839309288" z2="-4.49399699895"/>
+	<Sphere cast="False" name="Duplicate3" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="-6.60479116743" y="1.0" z="-0.258223843084"/>
+	<Sphere cast="False" name="Duplicate2" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="1.0" y="1.0" z="-5.74854726213"/>
+	<SphereAberration cast="False" name="Duplicate1" r="3.43157251515" recieve="False" reflectivity="0.0" scale="0.5, 1.0, 1.0" selected="False" uniform="False" x="1.0" y="-0.0953019985261" z="-0.209312772774"/>
+	<Sphere cast="False" name="Duplicate4" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="8.45766318491" y="1.0" z="-0.258223843084"/>
+	<Sphere cast="False" name="Sphere1" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="0.936749792342" y="1.0" z="5.9878755811"/>
+	<Plane c="0.0" name="Plane1" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
+</scene>
