@@ -8,6 +8,7 @@ using namespace sf;
 
 #include<iostream>
 #include<math.h>
+#include<string>
 
 
 #include "physfs.h"

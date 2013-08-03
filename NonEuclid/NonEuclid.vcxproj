@@ -85,6 +85,7 @@
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects.cpp" />
+    <ClCompile Include="template.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
@@ -92,6 +93,7 @@
     <ClInclude Include="dependencies.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="objects.h" />
+    <ClInclude Include="template.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

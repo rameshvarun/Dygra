@@ -4,6 +4,8 @@
 
 #include "level.h"
 
+#include "template.h"
+
 
 int main()
 {
@@ -25,6 +27,10 @@ int main()
 
 	BOOST_LOG_TRIVIAL(debug) << "Initialized filesystem.";
 
+	templating::render("test.html");
+
+	exit(0);
+
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
 	window.setVerticalSyncEnabled(true);
 
@@ -32,45 +38,9 @@ int main()
 
 	Level *level = new Level();
 
-	//level->AddObject(new Sphere("sp3", -4.0,1.0,0.0,1.0, 0.2, false, true, false));
-	//level->AddObject(new Sphere("sp1", 0.0,1.0,4.0,1.0, 0.2, false, true, false));
-	//level->AddObject(new Sphere("sp2", 4.0,1.0,0.0,1.0, 0.2, false, true, false));
-	
-	//level->AddObject(new Plane("pl1", 0.0, 1.0, 0.0, 0.0, 0.0, false, true));
 	
 	level->LoadXML("test.xml");
 	
-	//level->AddObject(new SpherePortal("portal1", 2, 10.0, 2.0, 2.0, -10.0, 2.0, 2.0, false) );
-
-	//level->AddObject(new SphereAberration("aberration1", 2.0, 0.0, 0.0, 0.0, 0.5, 1.0, 1.0, false));
-
-
-	//level->AddObject(new Box("box1", 0, 0, 7, 1, 2, 10, false, true, false));
-	//level->AddObject(new Box("box2", 2, 0, 7, 3, 2, 10, false, true, false));
-
-	//level->AddObject(new Box("box3", 1, 1.5, 7, 2, 2, 10, false, true, false));
-
-	//level->AddObject(new BoxAberration("aberration2", Vector3f(0.9,-1,7.1), Vector3f(2.1,2.0,9.9), Vector3f(1.0, 1.0, 0.2), false ));
-
-
-
-
-	//level->AddObject(new Box("box4", 4, 0, 7, 5, 2, 15, false, true, false));
-	//level->AddObject(new Box("box5", 6, 0, 7, 7, 2, 15, false, true, false));
-
-	//level->AddObject(new Box("box6", 5, 1.5, 7, 6, 2, 15, false, true, false));
-
-	//level->AddObject(new BoxAberration("aberration3", Vector3f(4.9,-1,7.1), Vector3f(6.1,2.0,14.9), Vector3f(1.0, 1.0, 5), false ));
-
-	//level->AddObject(new BoxPortal("portal2", Vector3f(-10,0,-10), Vector3f(-10,0,15), Vector3f(20,2,0.5), false ) );
-
-
-	//level->AddObject(new BoxPortal("portal3", Vector3f(-10,0,-10), Vector3f(10,0,-10), Vector3f(0.5,2,26), false ) );
-
-	//level->AddObject(new BoxPortal("portal4", Vector3f( -0.21, 0, 8), Vector3f(7.01, 0, 10), Vector3f(0.2,1.5,1), false ) );
-	
-	
-	//level->AddObject(new SphereAberration("aberration1", 1.5, 1.5, 0.0, 8.5, 1.0, 1.0, 0.3, false));
 
 	
 

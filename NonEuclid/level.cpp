@@ -8,6 +8,7 @@ using namespace tinyxml2;
 
 #include "dependencies.h"
 
+#include "template.h"
 
 Level::Level()
 {
