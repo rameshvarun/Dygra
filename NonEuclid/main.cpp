@@ -28,11 +28,7 @@ int main()
 
 	BOOST_LOG_TRIVIAL(debug) << "Initialized filesystem.";
 
-	Node *node = new Node();
-	node->set("name", "Name of thing");
-	templating::render("test.html", node);
-
-	exit(0);
+	
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
 	window.setVerticalSyncEnabled(true);

@@ -10,8 +10,16 @@ uniform vec3 cameraPos;
 uniform vec3 cameraUp;
 uniform vec3 cameraLook;
 
+/*
 
-//vec4 pl1 = vec4(0.0, 1.0, 0.0, 0.0);
+{% for object in objects %}
+	{{ object.name }}
+	{{ object.type }}
+	{{ object.uniform }}
+	{{ object.pos.x }}
+{% endfor %}
+
+*/
 
 {{OBJECTS}}
 

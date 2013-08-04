@@ -9,6 +9,10 @@
 #include <fstream>
 #include <map>
 
+#include "template.h"
+
+using namespace templating;
+
 using namespace sf;
 
 void replaceAll(std::string& str, const std::string& from, const std::string& to);
@@ -29,6 +33,8 @@ public:
 
 	bool castshadows;
 	bool recieveshadows;
+
+	virtual Node* getContext();
 };
 
 class Sphere : public Object
@@ -45,6 +51,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	virtual Node* getContext();
 };
 
 class Plane : public Object

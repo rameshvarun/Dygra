@@ -48,6 +48,8 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 }
 
 
+#pragma region Object
+
 std::string Object::GetDefinitionCode()
 {
 	return "";
@@ -57,6 +59,24 @@ std::string Object::GetIntersectCode()
 {
 	return "";
 }
+
+Node* Object::getContext()
+{
+	Node* context = new Node();
+
+	context->set("name", name.c_str() );
+	context->set("type", type );
+
+	context->set("uniform", uniform );
+	context->set("castshadows", castshadows );
+	context->set("recieveshadows", recieveshadows );
+
+	return context;
+}
+
+#pragma endregion
+
+#pragma region Sphere
 
 Sphere::Sphere(std::string n, float xpos, float ypos, float zpos, float r, float reflect, bool u, bool cast, bool recieve)
 {
@@ -74,6 +94,23 @@ Sphere::Sphere(std::string n, float xpos, float ypos, float zpos, float r, float
 
 	castshadows = cast;
 	recieveshadows = recieve;
+}
+
+Node* Sphere::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("reflectivity", reflectivity);
+	context->set("radius", radius);
+
+	Node *position = new Node();
+	position->set("x", x);
+	position->set("y", y);
+	position->set("z", z);
+
+	context->set("pos", position);
+
+	return context;
 }
 
 std::string Sphere::GetDefinitionCode()
@@ -122,6 +159,10 @@ std::string Sphere::GetIntersectCode()
 
 	return glsl;
 }
+
+#pragma endregion
+
+#pragma region Plane
 
 Plane::Plane(std::string n, float xpos, float ypos, float zpos, float wpos, float reflect, bool u, bool recieve)
 {
@@ -191,6 +232,8 @@ std::string Plane::GetIntersectCode()
 
 	return glsl;
 }
+
+#pragma endregion
 
 SpherePortal::SpherePortal(std::string n, float r, float xpos1, float ypos1, float zpos1, float xpos2, float ypos2, float zpos2, bool u)
 {

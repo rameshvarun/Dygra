@@ -10,6 +10,8 @@ using namespace tinyxml2;
 
 #include "template.h"
 
+using namespace templating;
+
 Level::Level()
 {
 	shader = new sf::Shader();
@@ -29,8 +31,11 @@ void Level::BuildShader(sf::Vector2f resolution)
 {
 	BOOST_LOG_TRIVIAL(debug) << "Building shader...";
 
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/template.frag" );
+	Node *context = new Node();
+
+	NodeList *objectlist = new NodeList();
+	context->properties["objects"] = objectlist;
+
 
 	std::stringstream code1;
 	std::stringstream code2;
@@ -40,6 +45,8 @@ void Level::BuildShader(sf::Vector2f resolution)
 	for (std::map<const char*, Object*>::iterator it=objects.begin(); it!=objects.end(); ++it)
 	{
 		(*it).second->objects = objects;
+
+		objectlist->nodes.push_back( (*it).second->getContext() );
 
 		code1 << (*it).second->GetDefinitionCode() << "\n";
 
@@ -65,12 +72,13 @@ void Level::BuildShader(sf::Vector2f resolution)
 	}
 
 
-	replace(glsl, "{{OBJECTS}}", code1.str());
 
 
-	replace(glsl, "{{INTERSECTCODE}}", code2.str());
+	context->set( "OBJECTS", code1.str().c_str() );
+	context->set( "INTERSECTCODE", code2.str().c_str() );
+	context->set( "ABERRATION", code3.str().c_str() );
 
-	replace(glsl, "{{ABERRATION}}", code3.str());
+	std::string glsl = render("shaders/template.frag", context);
 
 	
 #ifdef _DEBUG
