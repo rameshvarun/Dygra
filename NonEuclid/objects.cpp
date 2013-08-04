@@ -50,11 +50,6 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 
 #pragma region Object
 
-std::string Object::GetDefinitionCode()
-{
-	return "";
-}
-
 std::string Object::GetIntersectCode()
 {
 	return "";
@@ -110,34 +105,6 @@ Node* Sphere::getContext()
 	return context;
 }
 
-std::string Sphere::GetDefinitionCode()
-{
-	std::stringstream code;
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec4 " << name << " = vec4(" <<
-		x << "," << y << "," << z << "," << radius
-		<< ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "float " << name << "reflect = " << reflectivity << ";";
-
-	code << "\n\n";
-
-	return code.str();
-
-}
-
 std::string Sphere::GetIntersectCode()
 {
 	//Read template glsl into string
@@ -191,35 +158,6 @@ Node* Plane::getContext()
 
 	return context;
 }
-
-std::string Plane::GetDefinitionCode()
-{
-	std::stringstream code;
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec4 " << name << " = vec4(" <<
-		x << "," << y << "," << z << "," << w
-		<< ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "float " << name << "reflect = " << reflectivity << ";";
-
-	code << "\n\n";
-
-	return code.str();
-
-}
-
 
 
 std::string Plane::GetIntersectCode()
@@ -280,35 +218,7 @@ Node* SpherePortal::getContext()
 	return context;
 }
 
-std::string SpherePortal::GetDefinitionCode()
-{
-	std::stringstream code;
 
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec4 " << name << "_1 = vec4(" <<
-		x1 << "," << y1 << "," << z1 << "," << radius
-		<< ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec4 " << name << "_2 = vec4(" <<
-		x2 << "," << y2 << "," << z2 << "," << radius
-		<< ");";
-
-	code << "\n\n";
-
-	return code.str();
-
-}
 std::string SpherePortal::GetIntersectCode()
 {
 	//Read template glsl into string
@@ -356,34 +266,7 @@ Node* SphereAberration::getContext()
 	return context;
 }
 
-std::string SphereAberration::GetDefinitionCode()
-{
-	std::stringstream code;
 
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec4 " << name << " = vec4(" <<
-		x << "," << y << "," << z << "," << radius
-		<< ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_scale = vec3(" <<
-		scalex << "," << scaley << "," << scalez << ");";
-
-	code << "\n\n";
-
-	return code.str();
-
-}
 std::string SphereAberration::GetIntersectCode()
 {
 	//Read template glsl into string
@@ -428,33 +311,6 @@ Node* Box::getContext()
 	return context;
 }
 
-std::string Box::GetDefinitionCode()
-{
-	std::stringstream code;
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_min = vec3(" <<
-		x1 << "," << y1 << "," << z1 << ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_max = vec3(" <<
-		x2 << "," << y2 << "," << z2 << ");";
-
-	code << "\n\n";
-
-	return code.str();
-
-}
 
 std::string Box::GetIntersectCode()
 {
@@ -509,45 +365,6 @@ Node* BoxPortal::getContext()
 	return context;
 }
 
-std::string BoxPortal::GetDefinitionCode()
-{
-	std::stringstream code;
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_min1 = vec3(" <<
-		min1.x << "," << min1.y << "," << min1.z << ");";
-
-	code << "\n";
-
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_min2 = vec3(" <<
-		min2.x << "," << min2.y << "," << min2.z << ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_size = vec3(" <<
-		size.x << "," << size.y << "," << size.z << ");";
-
-
-	code << "\n\n";
-
-	return code.str();
-
-}
 
 std::string BoxPortal::GetIntersectCode()
 {
@@ -590,45 +407,6 @@ Node* BoxAberration::getContext()
 	return context;
 }
 
-std::string BoxAberration::GetDefinitionCode()
-{
-	std::stringstream code;
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_min = vec3(" <<
-		min.x << "," << min.y << "," << min.z << ");";
-
-	code << "\n";
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_max = vec3(" <<
-		max.x << "," << max.y << "," << max.z << ");";
-
-	code << "\n";
-
-
-	if(uniform)
-	{
-		code << "uniform ";
-	}
-
-	code << "vec3 " << name << "_scale = vec3(" <<
-		scale.x << "," << scale.y << "," << scale.z << ");";
-
-
-	code << "\n\n";
-
-	return code.str();
-
-}
 
 std::string BoxAberration::GetIntersectCode()
 {
