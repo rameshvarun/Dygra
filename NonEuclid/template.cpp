@@ -20,7 +20,8 @@ boost::regex for_regex("%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%");
 boost::regex variable_regex("\\s*(\\S*)\\s*");
 
 
-boost::regex endfor_regex("\\{%\\s*endfor\\s*%\\}");
+boost::regex fortag_regex("\\{%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%\\}");
+boost::regex endfortag_regex("\\{%\\s*endfor\\s*%\\}");
 
 
 
@@ -66,28 +67,81 @@ std::string templating::expand( std::string code, Node* rootnode )
 			BOOST_LOG_TRIVIAL(trace) << "For tag. Iterate through " << loopname << " with each element named " << itemname;
 
 			//Find the end of this for loop
-			//TODO: Currently cannot handle nested loops.
+			
+			std::string::const_iterator new_start = what[0].second;
+			int level = 0;
+
 			boost::match_results<std::string::const_iterator> endfor_match;
-			if( regex_search(what[0].second, end, endfor_match, endfor_regex, flags) )
+			boost::match_results<std::string::const_iterator> fortag_match;
+
+			bool fortag = false;
+			bool endfor = false;
+
+			bool found_loop_end = false;
+
+			do
 			{
-				std::string toreplace = std::string(what[0].first, endfor_match[0].second); //The segment that must be replaced
+				//Check to see for a tag
+				fortag = regex_search(new_start, end, fortag_match, fortag_regex, flags);
+				endfor = regex_search(new_start, end, endfor_match, endfortag_regex, flags);
 
-				std::string inlinecode = std::string(what[0].second, endfor_match[0].first); //The stuff inside the loop that must be repeated
-
-				
-				std::string replacement = "";
-				NodeList* nodelist = (NodeList*)rootnode->get( loopname );
-
-				foreach( Node *node, nodelist->nodes )
+				//Determine which tag appeared first
+				if(fortag && endfor)
 				{
-					rootnode->properties[itemname] = node;
-
-					replacement += expand(inlinecode, rootnode);
+					if(fortag_match[0].first < endfor_match[0].first)
+					{
+						endfor = false;
+					}
+					else
+					{
+						fortag = false;
+					}
 				}
 
-				replace_all(result, toreplace, replacement); //Replace all instances of the loop with the new value
-			}
+				if(endfor)
+				{
+					if(level == 0)
+					{
+						std::string toreplace = std::string(what[0].first, endfor_match[0].second); //The segment that must be replaced
+						std::string inlinecode = std::string(what[0].second, endfor_match[0].first); //The stuff inside the loop that must be repeated
+				
+						std::string replacement = "";
+						NodeList* nodelist = (NodeList*)rootnode->get( loopname );
 
+						//Expand the interior code for each node in the list
+						foreach( Node *node, nodelist->nodes )
+						{
+							rootnode->properties[itemname] = node;
+							replacement += expand(inlinecode, rootnode);
+						}
+
+						replace_all(result, toreplace, replacement); //Replace all instances of the loop with the new value
+
+						found_loop_end = true;
+						break;
+					}
+					else
+					{
+						level -= 1;
+					}
+
+					new_start =  endfor_match[0].second;
+				}
+
+				if(fortag)
+				{
+					level += 1;
+					new_start =  fortag_match[0].second;
+				}
+
+
+
+			} while( fortag || endfor);
+
+			if(found_loop_end == false)
+			{
+				BOOST_LOG_TRIVIAL(error) << "Coudn't find the end of this loop!";
+			}
 
 			tag_matched = true;
 		}

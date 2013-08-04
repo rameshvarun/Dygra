@@ -13,10 +13,10 @@ uniform vec3 cameraLook;
 /*
 
 {% for object in objects %}
-	{{ object.name }}
-	{{ object.type }}
-	{{ object.uniform }}
-	{{ object.pos.x }}
+	{% for object in objects %}
+		{{ object.name }}
+	{% endfor %}
+
 {% endfor %}
 
 */
