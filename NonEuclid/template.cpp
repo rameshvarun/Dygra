@@ -62,6 +62,12 @@ bool templating::evaluate( std::string expression, Node* rootnode)
 	else
 	{
 		std::string varname = trim( expression );
+
+		if( rootnode->exists( varname ) && rootnode->get( varname )->type == "bool")
+		{
+			return ((BoolValue*)rootnode->get( varname ))->value;
+		}
+
 		return rootnode->exists( varname );
 	}
 }
@@ -132,9 +138,13 @@ std::string templating::expand( std::string code, Node* rootnode )
 				}
 
 				replace_all(result, toreplace, replacement); //Replace all instances of the tag with the new value
+
+				
 			}
 
 			tag_matched = true;
+
+			start = endif_match[0].second;
 		}
 		else if( regex_match(tag, tagmatch, for_regex) ) //For tag
 		{
@@ -219,6 +229,8 @@ std::string templating::expand( std::string code, Node* rootnode )
 			}
 
 			tag_matched = true;
+
+			start = endfor_match[0].second;
 		}
 		else if( regex_match(tag, tagmatch, variable_regex) ) //Standard variable tag
 		{
@@ -230,13 +242,11 @@ std::string templating::expand( std::string code, Node* rootnode )
 			BOOST_LOG_TRIVIAL(trace) << "Variable tag for variable " << variable;
 
 			tag_matched = true;
-		}
 
-		if( tag_matched == true)
-		{
 			start = what[0].second;
 		}
-		else
+
+		if( tag_matched == false)
 		{
 			start = what[0].first;
 			++start;

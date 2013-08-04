@@ -6,25 +6,36 @@ precision highp float;
 
 uniform vec2 resolution;
 
+//Camera information
 uniform vec3 cameraPos;
 uniform vec3 cameraUp;
 uniform vec3 cameraLook;
 
-/*
-
+//Object Definitions
 {% for object in objects %}
 
 {% if object.type == "sphere" %}
-Sphere
-{% else %}
-Non-sphere
+	{{object.uniform}} vec4 {{object.name}} = vec4( {{object.pos.x}}, {{object.pos.y}}, {{object.pos.z}}, {{object.radius}} );
+	float {{object.name}}reflect = {{object.reflectivity}};
+{% endif %}
+
+{% if object.type == "plane" %}
+	{{object.uniform}} vec4 {{object.name}} = vec4( {{object.x}}, {{object.y}}, {{object.z}}, {{object.w}} );
+	float {{object.name}}reflect = {{object.reflectivity}};
+{% endif %}
+
+{% if object.type == "sphereportal" %}
+	{{object.uniform}} vec4 {{object.name}}_1 = vec4( {{object.1.x}}, {{object.1.y}}, {{object.1.z}}, {{object.radius}} );
+	{{object.uniform}} vec4 {{object.name}}_2 = vec4( {{object.2.x}}, {{object.2.y}}, {{object.2.z}}, {{object.radius}} );
+{% endif %}
+
+{% if object.type == "sphereaberration" %}
+	{{object.uniform}} vec4 {{object.name}} = vec4( {{object.pos.x}}, {{object.pos.y}}, {{object.pos.z}}, {{object.radius}} );
+	{{object.uniform}} vec3 {{object.name}}_scale = vec3( {{object.scale.x}}, {{object.scale.y}}, {{object.scale.z}} );
 {% endif %}
 
 {% endfor %}
 
-*/
-
-{{OBJECTS}}
 
 bool iBox2(in vec3 min, in vec3 max, in vec3 ro, in vec3 rd, in float tm, out float t)
 {

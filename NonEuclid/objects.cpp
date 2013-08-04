@@ -67,7 +67,9 @@ Node* Object::getContext()
 	context->set("name", name.c_str() );
 	context->set("type", type );
 
-	context->set("uniform", uniform );
+	if(uniform)
+		context->set("uniform", "uniform" );
+
 	context->set("castshadows", castshadows );
 	context->set("recieveshadows", recieveshadows );
 
@@ -181,6 +183,20 @@ Plane::Plane(std::string n, float xpos, float ypos, float zpos, float wpos, floa
 	recieveshadows = recieve;
 }
 
+Node* Plane::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("reflectivity", reflectivity);
+
+	context->set("x", x);
+	context->set("y", y);
+	context->set("z", z);
+	context->set("w", w);
+
+	return context;
+}
+
 std::string Plane::GetDefinitionCode()
 {
 	std::stringstream code;
@@ -255,6 +271,28 @@ SpherePortal::SpherePortal(std::string n, float r, float xpos1, float ypos1, flo
 	cameraInside = false;
 }
 
+Node* SpherePortal::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("radius", radius);
+
+	Node* pos1 = new Node();
+	pos1->set("x", x1);
+	pos1->set("y", y1);
+	pos1->set("z", z1);
+
+	Node* pos2 = new Node();
+	pos2->set("x", x2);
+	pos2->set("y", y2);
+	pos2->set("z", z2);
+
+	context->set("1", pos1);
+	context->set("2", pos2);
+
+	return context;
+}
+
 std::string SpherePortal::GetDefinitionCode()
 {
 	std::stringstream code;
@@ -312,6 +350,30 @@ SphereAberration::SphereAberration(std::string n, float r, float xpos, float ypo
 	type = "sphereaberration";
 
 	cameraInside = false;
+}
+
+Node* SphereAberration::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("radius", radius);
+
+	Node* position = new Node();
+
+	position->set("x", x);
+	position->set("y", y);
+	position->set("z", z);
+
+	Node* scale = new Node();
+
+	scale->set("x", scalex);
+	scale->set("y", scaley);
+	scale->set("z", scalez);
+
+	context->set("pos", position);
+	context->set("scale", scale);
+
+	return context;
 }
 
 std::string SphereAberration::GetDefinitionCode()

@@ -69,6 +69,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	virtual Node* getContext();
 };
 
 
@@ -91,6 +93,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	virtual Node* getContext();
 };
 
 class SphereAberration : public Object
@@ -112,6 +116,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	virtual Node* getContext();
 };
 
 
@@ -130,6 +136,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	//virtual Node* getContext();
 };
 
 class BoxPortal : public Object
@@ -147,6 +155,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	//virtual Node* getContext();
 };
 
 class BoxAberration : public Object
@@ -164,6 +174,8 @@ public:
 
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
+
+	//virtual Node* getContext();
 };
 
 
