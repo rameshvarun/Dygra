@@ -34,6 +34,25 @@ uniform vec3 cameraLook;
 	{{object.uniform}} vec3 {{object.name}}_scale = vec3( {{object.scale.x}}, {{object.scale.y}}, {{object.scale.z}} );
 {% endif %}
 
+{% if object.type == "box" %}
+	{{object.uniform}} vec3 {{object.name}}_min = vec3( {{object.min.x}}, {{object.min.y}}, {{object.min.z}} );
+	{{object.uniform}} vec3 {{object.name}}_max = vec3( {{object.max.x}}, {{object.max.y}}, {{object.max.z}} );
+{% endif %}
+
+{% if object.type == "boxportal" %}
+	{{object.uniform}} vec3 {{object.name}}_min1 = vec3( {{object.min1.x}}, {{object.min1.y}}, {{object.min1.z}} );
+	{{object.uniform}} vec3 {{object.name}}_min2 = vec3( {{object.min2.x}}, {{object.min2.y}}, {{object.min2.z}} );
+	
+	{{object.uniform}} vec3 {{object.name}}_size = vec3( {{object.size.x}}, {{object.size.y}}, {{object.size.z}} );
+{% endif %}
+
+{% if object.type == "boxaberration" %}
+	{{object.uniform}} vec3 {{object.name}}_min = vec3( {{object.min.x}}, {{object.min.y}}, {{object.min.z}} );
+	{{object.uniform}} vec3 {{object.name}}_max = vec3( {{object.max.x}}, {{object.max.y}}, {{object.max.z}} );
+	
+	{{object.uniform}} vec3 {{object.name}}_scale = vec3( {{object.scale.x}}, {{object.scale.y}}, {{object.scale.z}} );
+{% endif %}
+
 {% endfor %}
 
 

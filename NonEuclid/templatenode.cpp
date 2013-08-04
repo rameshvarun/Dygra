@@ -13,7 +13,7 @@ Node::Node()
 	properties = std::map<std::string, Node*>();
 }
 
-#pragma region Set_Convenience
+#pragma region Convenience Functions
 
 void Node::set( std::string name, const char* value )
 {
@@ -33,6 +33,31 @@ void Node::set( std::string name, float value )
 void Node::set( std::string name, Node* value )
 {
 	properties[name] = value;
+}
+
+void Node::set( std::string name, Vector3f value )
+{
+	properties[name] = Vector3Node( value );
+}
+
+Node* templating::Vector3Node( float x, float y, float z)
+{
+	Node* node = new Node();
+	node->set("x", x);
+	node->set("y", y);
+	node->set("z", z);
+
+	return node;
+}
+
+Node* templating::Vector3Node( Vector3f vec )
+{
+	Node* node = new Node();
+	node->set("x", vec.x );
+	node->set("y", vec.y );
+	node->set("z", vec.z );
+
+	return node;
 }
 
 #pragma endregion

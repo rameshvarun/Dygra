@@ -105,12 +105,7 @@ Node* Sphere::getContext()
 	context->set("reflectivity", reflectivity);
 	context->set("radius", radius);
 
-	Node *position = new Node();
-	position->set("x", x);
-	position->set("y", y);
-	position->set("z", z);
-
-	context->set("pos", position);
+	context->set("pos", Vector3Node(x, y, z) );
 
 	return context;
 }
@@ -251,6 +246,8 @@ std::string Plane::GetIntersectCode()
 
 #pragma endregion
 
+#pragma region SpherePortal
+
 SpherePortal::SpherePortal(std::string n, float r, float xpos1, float ypos1, float zpos1, float xpos2, float ypos2, float zpos2, bool u)
 {
 	name = n;
@@ -277,18 +274,8 @@ Node* SpherePortal::getContext()
 
 	context->set("radius", radius);
 
-	Node* pos1 = new Node();
-	pos1->set("x", x1);
-	pos1->set("y", y1);
-	pos1->set("z", z1);
-
-	Node* pos2 = new Node();
-	pos2->set("x", x2);
-	pos2->set("y", y2);
-	pos2->set("z", z2);
-
-	context->set("1", pos1);
-	context->set("2", pos2);
+	context->set("1", Vector3Node(x1, y1, z1) );
+	context->set("2", Vector3Node(x2, y2, z2) );
 
 	return context;
 }
@@ -332,6 +319,11 @@ std::string SpherePortal::GetIntersectCode()
 	return glsl;
 }
 
+#pragma endregion
+
+
+#pragma region SphereAberratopm
+
 SphereAberration::SphereAberration(std::string n, float r, float xpos, float ypos, float zpos, float sx, float sy, float sz, bool u)
 {
 	name = n;
@@ -358,20 +350,8 @@ Node* SphereAberration::getContext()
 
 	context->set("radius", radius);
 
-	Node* position = new Node();
-
-	position->set("x", x);
-	position->set("y", y);
-	position->set("z", z);
-
-	Node* scale = new Node();
-
-	scale->set("x", scalex);
-	scale->set("y", scaley);
-	scale->set("z", scalez);
-
-	context->set("pos", position);
-	context->set("scale", scale);
+	context->set("pos", Vector3Node(x, y, z) );
+	context->set("scale", Vector3Node(scalex, scaley, scalez) );
 
 	return context;
 }
@@ -414,6 +394,10 @@ std::string SphereAberration::GetIntersectCode()
 	return glsl;
 }
 
+#pragma endregion
+
+#pragma region Box
+
 Box::Box(std::string n, float xpos1, float ypos1, float zpos1, float xpos2, float ypos2, float zpos2, bool u, bool cast, bool recieve)
 {
 	name = n;
@@ -432,6 +416,16 @@ Box::Box(std::string n, float xpos1, float ypos1, float zpos1, float xpos2, floa
 
 	castshadows = cast;
 	recieveshadows = recieve;
+}
+
+Node* Box::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("min", Vector3Node(x1, y1, z1) );
+	context->set("max", Vector3Node(x2, y2, z2) );
+
+	return context;
 }
 
 std::string Box::GetDefinitionCode()
@@ -481,6 +475,10 @@ std::string Box::GetIntersectCode()
 	return glsl;
 }
 
+#pragma endregion
+
+#pragma region BoxPortal
+
 BoxPortal::BoxPortal(const char* n,  Vector3f min_1, Vector3f min_2, Vector3f s, bool u)
 {
 	name = n;
@@ -499,6 +497,17 @@ BoxPortal::BoxPortal(const char* n,  Vector3f min_1, Vector3f min_2, Vector3f s,
 	cameraInside = false;
 }
 
+Node* BoxPortal::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("min1", min1 );
+	context->set("min2", min2 );
+
+	context->set("size", size );
+
+	return context;
+}
 
 std::string BoxPortal::GetDefinitionCode()
 {
@@ -550,6 +559,9 @@ std::string BoxPortal::GetIntersectCode()
 	return glsl;
 }
 
+#pragma endregion
+
+#pragma region BoxAberration
 
 BoxAberration::BoxAberration(std::string n, Vector3f minimum, Vector3f maximum, Vector3f s, bool u)
 {
@@ -564,6 +576,18 @@ BoxAberration::BoxAberration(std::string n, Vector3f minimum, Vector3f maximum, 
 	type = "boxaberration";
 
 	cameraInside = false;
+}
+
+Node* BoxAberration::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("min", min );
+	context->set("max", max );
+
+	context->set("scale", scale );
+
+	return context;
 }
 
 std::string BoxAberration::GetDefinitionCode()
@@ -615,3 +639,5 @@ std::string BoxAberration::GetIntersectCode()
 
 	return glsl;
 }
+
+#pragma endregion

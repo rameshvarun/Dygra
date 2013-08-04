@@ -30,6 +30,8 @@ namespace templating
 			void set( std::string name, bool value );
 			void set( std::string name, float value );
 			void set( std::string name, Node* value );
+
+			void set( std::string name, Vector3f value );
 		};
 
 		//Represents a string property
@@ -67,12 +69,16 @@ namespace templating
 			std::list<Node*> nodes;
 		};
 
+		//Convenience function to create a vector 3 node
+		Node* Vector3Node( float x, float y, float z);
+		Node* Vector3Node( Vector3f vec );
 
 		std::string render(const char* filename, Node* rootnode);
 
 		//Recursive function that actually expands a string containing the template
 		std::string expand( std::string code, Node* rootnode);
 
+		//Evaulates a string expression into a boolean value
 		bool evaluate( std::string expression, Node* rootnode);
 }
 

@@ -137,7 +137,7 @@ public:
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
 
-	//virtual Node* getContext();
+	virtual Node* getContext();
 };
 
 class BoxPortal : public Object
@@ -156,15 +156,13 @@ public:
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
 
-	//virtual Node* getContext();
+	virtual Node* getContext();
 };
 
 class BoxAberration : public Object
 {
 public:
 	BoxAberration(std::string n, Vector3f minimum, Vector3f maximum, Vector3f s, bool u);
-
-	float radius;
 
 	Vector3f min;
 	Vector3f max;
@@ -175,7 +173,7 @@ public:
 	virtual std::string GetDefinitionCode();
 	virtual std::string GetIntersectCode();
 
-	//virtual Node* getContext();
+	virtual Node* getContext();
 };
 
 
