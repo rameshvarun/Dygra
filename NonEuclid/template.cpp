@@ -13,17 +13,58 @@ using namespace templating;
 
 boost::regex tag_regex("\\{{1,2}(.*?)\\}{1,2}");
 
+//Types of tags
 boost::regex if_regex("%\\s*if(.*)%");
-
 boost::regex for_regex("%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%");
-
 boost::regex variable_regex("\\s*(\\S*)\\s*");
 
-
+//End and beginning of loops
 boost::regex fortag_regex("\\{%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%\\}");
 boost::regex endfortag_regex("\\{%\\s*endfor\\s*%\\}");
 
+//Regexes related to finding ifs
+boost::regex iftag_regex("\\{%\\s*if(.*)%\\}");
+boost::regex else_regex("\\{%\\s*else\\s*%\\}");
+boost::regex endif_regex("\\{%\\s*endif\\s*%\\}");
 
+//Regexes for evaluating if statements
+boost::regex comparison_regex("([^=<>]*)\\s*(==|<=|>=|<|>)\\s*([^=<>]*)");
+
+bool templating::evaluate( std::string expression, Node* rootnode)
+{
+	boost::match_results<std::string::const_iterator> comparison_match;
+	boost::match_flag_type flags = boost::match_default;
+
+	std::string::const_iterator start, end;
+	start = expression.begin();
+	end = expression.end();
+
+	if( regex_search( start, end, comparison_match, comparison_regex, flags) ) 
+	{
+		std::string left = trim( std::string( comparison_match[1].first, comparison_match[1].second ) );
+		std::string right = trim( std::string( comparison_match[3].first, comparison_match[3].second ) );
+
+		std::string op = trim( std::string( comparison_match[2].first, comparison_match[2].second ) );
+
+		Node *initial = rootnode->get( left );
+		if(std::string(initial->type).compare( "string" ) == 0)
+		{
+			if( initial->toString().compare( right.substr(1, right.length() - 2 ) ) == 0 )
+			{
+				return true;
+			}
+		}
+
+		BOOST_LOG_TRIVIAL(trace) << "Comparison of type " << op;
+
+		return false;
+	}
+	else
+	{
+		std::string varname = trim( expression );
+		return rootnode->exists( varname );
+	}
+}
 
 //A function that recursively expands the template
 std::string templating::expand( std::string code, Node* rootnode )
@@ -56,6 +97,42 @@ std::string templating::expand( std::string code, Node* rootnode )
 			std::string expression = std::string(tagmatch[1].first, tagmatch[1].second);
 
 			BOOST_LOG_TRIVIAL(trace) << "If tag with expression " << expression;
+
+			//TODO - Doesnt support nested ifs
+			//Find endif tag
+			boost::match_results<std::string::const_iterator> endif_match;
+			if( regex_search( what[0].second , end, endif_match, endif_regex, flags) )
+			{
+				std::string toreplace = std::string(what[0].first, endif_match[0].second); //The segment that must be replaced
+				std::string replacement = "";
+
+				boost::match_results<std::string::const_iterator> else_match;
+				if( regex_search( what[0].second , end, else_match, else_regex, flags) ) //Does this if statement have an else tag?
+				{
+					if( evaluate( expression, rootnode ) )
+					{
+						//Get code between the if tag and the else tag
+						std::string inlinecode = std::string(what[0].second, else_match[0].first );
+						replacement = expand(inlinecode, rootnode);
+					}
+					else
+					{
+						//Get the code between the else tag and the endif tag
+						std::string inlinecode = std::string( else_match[0].second, endif_match[0].first);
+						replacement = expand(inlinecode, rootnode);
+					}
+				}
+				else
+				{
+					if( evaluate( expression, rootnode ) )
+					{
+						std::string inlinecode = std::string(what[0].second, endif_match[0].first);
+						replacement = expand(inlinecode, rootnode);
+					}
+				}
+
+				replace_all(result, toreplace, replacement); //Replace all instances of the tag with the new value
+			}
 
 			tag_matched = true;
 		}
@@ -133,8 +210,6 @@ std::string templating::expand( std::string code, Node* rootnode )
 					level += 1;
 					new_start =  fortag_match[0].second;
 				}
-
-
 
 			} while( fortag || endfor);
 

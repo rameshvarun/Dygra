@@ -75,6 +75,33 @@ Node* Node::get( std::string name )
 	
 }
 
+bool Node::exists( std::string name )
+{
+	size_t dot_pos = name.find(".");
+    if(dot_pos == std::string::npos)
+	{
+		if(properties.find(name) == properties.end() )
+		{
+			return false;
+		}
+
+        return true;
+	}
+	else
+	{
+		std::string objname = name.substr(0, dot_pos);
+		std::string propname = name.substr(dot_pos + 1, std::string::npos);
+
+		if(properties.find(objname) == properties.end() )
+		{
+			return false;
+		}
+
+		return properties[objname]->exists(propname);
+	}
+	
+}
+
 #pragma endregion
 
 #pragma region StringValue

@@ -21,7 +21,9 @@ namespace templating
 			const char* type;
 			std::map<std::string, Node*> properties;
 			virtual std::string toString();
+
 			Node* get( std::string name );
+			bool exists( std::string name );
 
 			//Convenience functions to set a property
 			void set( std::string name, const char* value );
@@ -70,6 +72,8 @@ namespace templating
 
 		//Recursive function that actually expands a string containing the template
 		std::string expand( std::string code, Node* rootnode);
+
+		bool evaluate( std::string expression, Node* rootnode);
 }
 
 #endif

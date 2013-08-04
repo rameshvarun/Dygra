@@ -13,9 +13,12 @@ uniform vec3 cameraLook;
 /*
 
 {% for object in objects %}
-	{% for object in objects %}
-		{{ object.name }}
-	{% endfor %}
+
+{% if object.type == "sphere" %}
+Sphere
+{% else %}
+Non-sphere
+{% endif %}
 
 {% endfor %}
 
