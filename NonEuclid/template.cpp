@@ -4,6 +4,7 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/foreach.hpp>
+#include <boost/filesystem.hpp>
 
 
 using namespace boost;
@@ -17,6 +18,7 @@ boost::regex tag_regex("\\{{1,2}(.*?)\\}{1,2}");
 boost::regex if_regex("%\\s*if(.*)%");
 boost::regex for_regex("%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%");
 boost::regex variable_regex("\\s*(\\S*)\\s*");
+boost::regex include_regex("\\{%\\s*include\\s*(\\S*)\\s*%\\}");
 
 //End and beginning of loops
 boost::regex fortag_regex("\\{%\\s*for\\s*(\\S*)\\s*in\\s*(\\S*)\\s*%\\}");
@@ -30,6 +32,7 @@ boost::regex endif_regex("\\{%\\s*endif\\s*%\\}");
 //Regexes for evaluating if statements
 boost::regex comparison_regex("([^=<>]*)\\s*(==|<=|>=|<|>)\\s*([^=<>]*)");
 
+//Returns the true or false value of a string expression
 bool templating::evaluate( std::string expression, Node* rootnode)
 {
 	boost::match_results<std::string::const_iterator> comparison_match;
@@ -139,7 +142,6 @@ std::string templating::expand( std::string code, Node* rootnode )
 
 				replace_all(result, toreplace, replacement); //Replace all instances of the tag with the new value
 
-				
 			}
 
 			tag_matched = true;
@@ -262,6 +264,34 @@ std::string templating::render(const char* filename, Node* rootnode)
 {
 	//Load file into string and then expand template
 	std::string file = file_to_string(filename);
+
+	//Initial pass to expand all includes
+	std::string::const_iterator start, end;
+	start = file.begin();
+	end = file.end();
+
+	boost::match_results<std::string::const_iterator> include_match;
+	boost::match_flag_type flags = boost::match_default;
+
+	while( regex_search(start, end, include_match, include_regex, flags) )
+	{
+		std::string toreplace = std::string( include_match[0].first, include_match[0].second); //The name of the variable
+		std::string includefilename = std::string( include_match[1].first, include_match[1].second); //The name of the variable
+
+		//Get the path to that file, given the parent directory of the current template
+		filesystem::path p(filename);
+		p = p.parent_path();
+		p += "/";
+		p += includefilename;
+
+		BOOST_LOG_TRIVIAL(trace) << "Including file " << p.string();
+
+		replace_all(file, toreplace, file_to_string( p.string().c_str() ) );
+
+		start = file.begin();
+		end = file.end();
+	}
+
 	std::string result = expand(file, rootnode);
 
 	return result;

@@ -37,7 +37,6 @@ void Level::BuildShader(sf::Vector2f resolution)
 	context->properties["objects"] = objectlist;
 
 
-	std::stringstream code1;
 	std::stringstream code2;
 
 	std::stringstream code3;
@@ -47,8 +46,6 @@ void Level::BuildShader(sf::Vector2f resolution)
 		(*it).second->objects = objects;
 
 		objectlist->nodes.push_back( (*it).second->getContext() );
-
-		code1 << (*it).second->GetDefinitionCode() << "\n";
 
 		code2 << (*it).second->GetIntersectCode() << "\n";
 
@@ -71,10 +68,6 @@ void Level::BuildShader(sf::Vector2f resolution)
 		}
 	}
 
-
-
-
-	context->set( "OBJECTS", code1.str().c_str() );
 	context->set( "INTERSECTCODE", code2.str().c_str() );
 	context->set( "ABERRATION", code3.str().c_str() );
 
