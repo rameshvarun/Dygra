@@ -14,6 +14,9 @@ uniform vec3 cameraLook;
 //Define all objects
 {% include objectdefinitions.frag %}
 
+//Functions that can give the normal of a shape
+{% include normals.frag %}
+
 void main( void )
 {
 
@@ -35,6 +38,9 @@ void main( void )
 	//Empty color
 	vec3 co = vec3(0.0);
 	
+	//Set Light direction
+	vec3 light = normalize( vec3(1.0, 1.0, 1.0) );
+	
 	int depth = 0;
 	
 	float STEP_SIZE = 0.2;
@@ -45,7 +51,11 @@ void main( void )
 	while( depth < MAX_DEPTH)
 	{
 		//Step forward
-		currentPos += rayDir*STEP_SIZE;
+		vec3 oldPos = currentPos;
+		
+		vec3 stepDir = rayDir;
+		
+		currentPos += stepDir*STEP_SIZE;
 		
 		{% include intersections.frag %}
 		
