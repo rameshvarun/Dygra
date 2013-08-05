@@ -3,7 +3,6 @@ if (iPlane( {{NAME}} , ro, rd, tm, t))
 	vec3 pos = ro + t*rd;
 
 	co = vec3(0.7 - 0.02*sin(pos.x*0.2) + 0.02*sin(pos.x*0.6) - 0.02*cos(pos.z*0.2)) ;
-	
 
 	//Shadows
 	float rm = 10000.0;

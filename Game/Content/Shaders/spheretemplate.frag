@@ -10,24 +10,20 @@ if (iSphere( {{NAME}} , ro, rd, tm, t))
 	//Shadows
 	float rm = 10000.0;
 	float r;
+	
 	{{SHADOWCODE}}
 	
 	tm = t;
-
 	
 	if({{NAME}}reflect > 0.01)
 	{
 		isNewRay = true;
-		
 		newRay = rd - nor * 2.0 * dot(nor, rd);
-		
 		newPos = pos;
-		
 		reflect  = {{NAME}}reflect;
 	}
 	else
 	{
 		isNewRay = false;
 	}
-
 }

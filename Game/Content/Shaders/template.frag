@@ -31,7 +31,7 @@ float intersect(in vec3 ro, in vec3 rd, out vec3 co , in vec3 light, in int dept
 	
 	co = vec3(0.7, 0.7, 0.7);
 	
-	{{INTERSECTCODE}}
+	{% include intersections.frag %}
 
 	return tm;
 	

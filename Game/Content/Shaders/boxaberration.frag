@@ -8,8 +8,6 @@ if (iBox( {{NAME}}_min , {{NAME}}_max, ro, rd, tm, t))
 	
 	co = vec3(0.6, 0.8, 0.9)*dif*ao + (0.1, 0.2, 0.3)*ao;
 	
-
-	
 	tm = t;
 	
 	isNewRay = true;
@@ -32,8 +30,6 @@ if (iBox2( {{NAME}}_min , {{NAME}}_max, ro, rd, tm, t))
 	float ao = 0.5 + 0.5*nor.y; 
 	
 	co = vec3(0.6, 0.8, 0.9)*dif*ao + (0.1, 0.2, 0.3)*ao;
-	
-
 	
 	tm = t;
 	

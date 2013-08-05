@@ -15,7 +15,6 @@ if (iSphere( {{NAME}} , ro, rd, tm, t))
 	newPos = (pos - {{NAME}}.xyz)*0.99 + {{NAME}}.xyz;;
 	
 	reflect = 1.0;
-
 }
 
 
@@ -36,5 +35,4 @@ if (iSphere2( {{NAME}} , ro, rd, tm, t))
 	newPos = (pos - {{NAME}}.xyz)*1.01 + {{NAME}}.xyz;;
 	
 	reflect = 1.0;
-
 }
