@@ -50,11 +50,6 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 
 #pragma region Object
 
-std::string Object::GetIntersectCode()
-{
-	return "";
-}
-
 Node* Object::getContext()
 {
 	Node* context = new Node();
@@ -105,25 +100,6 @@ Node* Sphere::getContext()
 	return context;
 }
 
-std::string Sphere::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl  = file_to_string( "shaders/spheretemplate.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	if(recieveshadows)
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  ShadowCode(objects, name) );
-	}
-	else
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  "" );
-	}
-
-	return glsl;
-}
-
 #pragma endregion
 
 #pragma region Plane
@@ -157,29 +133,6 @@ Node* Plane::getContext()
 	context->set("w", w);
 
 	return context;
-}
-
-
-std::string Plane::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/planetemplate.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	//Shadow code
-
-	if(recieveshadows)
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  ShadowCode(objects, name) );
-	}
-	else
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  "" );
-	}
-
-
-	return glsl;
 }
 
 #pragma endregion
@@ -216,17 +169,6 @@ Node* SpherePortal::getContext()
 	context->set("2", Vector3Node(x2, y2, z2) );
 
 	return context;
-}
-
-
-std::string SpherePortal::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/sphereportal.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	return glsl;
 }
 
 #pragma endregion
@@ -266,17 +208,6 @@ Node* SphereAberration::getContext()
 	return context;
 }
 
-
-std::string SphereAberration::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/sphereaberration.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	return glsl;
-}
-
 #pragma endregion
 
 #pragma region Box
@@ -311,25 +242,6 @@ Node* Box::getContext()
 	return context;
 }
 
-
-std::string Box::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/box.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	if(recieveshadows)
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  ShadowCode(objects, name) );
-	}
-	else
-	{
-		replaceAll(glsl, "{{SHADOWCODE}}",  "" );
-	}
-
-	return glsl;
-}
 
 #pragma endregion
 
@@ -366,16 +278,6 @@ Node* BoxPortal::getContext()
 }
 
 
-std::string BoxPortal::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl = file_to_string( "shaders/boxportal.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	return glsl;
-}
-
 #pragma endregion
 
 #pragma region BoxAberration
@@ -407,15 +309,5 @@ Node* BoxAberration::getContext()
 	return context;
 }
 
-
-std::string BoxAberration::GetIntersectCode()
-{
-	//Read template glsl into string
-	std::string glsl  = file_to_string( "shaders/boxaberration.frag" );
-
-	replaceAll(glsl, "{{NAME}}", name);
-
-	return glsl;
-}
 
 #pragma endregion

@@ -26,8 +26,6 @@ public:
 
 	const char* type;
 
-	virtual std::string GetIntersectCode();
-
 	std::map<const char*, Object*> objects;
 
 	bool castshadows;
@@ -48,8 +46,6 @@ public:
 	
 	float reflectivity;
 
-	virtual std::string GetIntersectCode();
-
 	virtual Node* getContext();
 };
 
@@ -64,8 +60,6 @@ public:
 	float w;
 
 	float reflectivity;
-
-	virtual std::string GetIntersectCode();
 
 	virtual Node* getContext();
 };
@@ -88,8 +82,6 @@ public:
 
 	bool cameraInside;
 
-	virtual std::string GetIntersectCode();
-
 	virtual Node* getContext();
 };
 
@@ -110,8 +102,6 @@ public:
 
 	bool cameraInside;
 
-	virtual std::string GetIntersectCode();
-
 	virtual Node* getContext();
 };
 
@@ -129,8 +119,6 @@ public:
 	float y2;
 	float z2;
 
-	virtual std::string GetIntersectCode();
-
 	virtual Node* getContext();
 };
 
@@ -147,8 +135,6 @@ public:
 
 	bool cameraInside;
 
-	virtual std::string GetIntersectCode();
-
 	virtual Node* getContext();
 };
 
@@ -162,8 +148,6 @@ public:
 	Vector3f scale;
 
 	bool cameraInside;
-
-	virtual std::string GetIntersectCode();
 
 	virtual Node* getContext();
 };

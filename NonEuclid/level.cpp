@@ -37,18 +37,10 @@ void Level::BuildShader(sf::Vector2f resolution)
 	context->properties["objects"] = objectlist;
 
 
-	std::stringstream code2;
-
 	for (std::map<const char*, Object*>::iterator it=objects.begin(); it!=objects.end(); ++it)
 	{
-		(*it).second->objects = objects;
-
 		objectlist->nodes.push_back( (*it).second->getContext() );
-
-		code2 << (*it).second->GetIntersectCode() << "\n";
 	}
-
-	context->set( "INTERSECTCODE", code2.str().c_str() );
 
 	std::string glsl = render("shaders/template.frag", context);
 
