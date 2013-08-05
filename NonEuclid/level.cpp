@@ -42,7 +42,7 @@ void Level::BuildShader(sf::Vector2f resolution)
 		objectlist->nodes.push_back( (*it).second->getContext() );
 	}
 
-	std::string glsl = render("shaders/template.frag", context);
+	std::string glsl = render("shaders/raymarching/template.frag", context);
 
 	
 #ifdef _DEBUG

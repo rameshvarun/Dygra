@@ -15,7 +15,7 @@
 			float rm = 10000.0;
 			float r;
 			
-			{{SHADOWCODE}}
+			{{SHADOWCODE}} //Does not work, due to lack of nested if's
 			
 			tm = t;
 			
@@ -45,7 +45,7 @@
 			float rm = 10000.0;
 			float r;
 			
-			{{SHADOWCODE}}
+			{{SHADOWCODE}} //Does not work, due to lack of nested if's
 			
 			tm = t;
 			
