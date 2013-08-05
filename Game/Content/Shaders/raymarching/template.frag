@@ -64,6 +64,7 @@ void main( void )
 		depth += 1;
 	}
 	
+	co *= 1 - (  float(depth)/MAX_DEPTH )*(  float(depth)/MAX_DEPTH );
 	
 	gl_FragColor = vec4(co, 1.0);
 

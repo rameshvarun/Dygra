@@ -30,7 +30,7 @@ int main()
 
 	
 
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML Shader");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Shader");
 	window.setVerticalSyncEnabled(true);
 
 	sf::RectangleShape shape = sf::RectangleShape(sf::Vector2f(window.getSize().x,window.getSize().y));
