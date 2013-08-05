@@ -55,6 +55,8 @@ void main( void )
 		
 		vec3 stepDir = rayDir;
 		
+		{% include insideaberration.frag %}
+		
 		currentPos += stepDir*STEP_SIZE;
 		
 		{% include intersections.frag %}
