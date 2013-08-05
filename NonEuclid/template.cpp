@@ -292,6 +292,7 @@ std::string templating::render(const char* filename, Node* rootnode)
 		end = file.end();
 	}
 
+
 	std::string result = expand(file, rootnode);
 
 	return result;

@@ -39,8 +39,6 @@ void Level::BuildShader(sf::Vector2f resolution)
 
 	std::stringstream code2;
 
-	std::stringstream code3;
-
 	for (std::map<const char*, Object*>::iterator it=objects.begin(); it!=objects.end(); ++it)
 	{
 		(*it).second->objects = objects;
@@ -48,28 +46,9 @@ void Level::BuildShader(sf::Vector2f resolution)
 		objectlist->nodes.push_back( (*it).second->getContext() );
 
 		code2 << (*it).second->GetIntersectCode() << "\n";
-
-		if((*it).second->type == "sphereaberration")
-		{
-			std::string aberration = file_to_string( "shaders/sphereaberrationinside.frag" );
-
-			replaceAll(aberration, "{{NAME}}", (*it).second->name);
-
-			code3 << aberration;
-		}
-
-		if((*it).second->type == "boxaberration")
-		{
-			std::string aberration = file_to_string( "shaders/boxaberrationinside.frag" );
-
-			replaceAll(aberration, "{{NAME}}", (*it).second->name);
-
-			code3 << aberration;
-		}
 	}
 
 	context->set( "INTERSECTCODE", code2.str().c_str() );
-	context->set( "ABERRATION", code3.str().c_str() );
 
 	std::string glsl = render("shaders/template.frag", context);
 

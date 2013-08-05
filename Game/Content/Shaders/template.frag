@@ -31,10 +31,7 @@ float intersect(in vec3 ro, in vec3 rd, out vec3 co , in vec3 light, in int dept
 	
 	co = vec3(0.7, 0.7, 0.7);
 	
-	
 	{{INTERSECTCODE}}
-	
-	
 
 	return tm;
 	
@@ -43,7 +40,8 @@ float intersect(in vec3 ro, in vec3 rd, out vec3 co , in vec3 light, in int dept
 
 
 
-void main( void ) {
+void main( void )
+{
 
 	//Camera information
 	vec3  viewDest = cameraLook;
@@ -70,11 +68,10 @@ void main( void ) {
 	float reflect = 0.0;
 	
 	//Set Light direction
-	vec3 light = normalize(vec3(1.0, 1.0, 1.0));
+	vec3 light = normalize( vec3(1.0, 1.0, 1.0) );
 	
-	
-	{{ABERRATION}}
-	
+	//If the camera starts out inside an aberration, the ray needs to start out bent
+	{% include insideaberration.frag %}
 
 	//First intersection
 	int depth = 5;
