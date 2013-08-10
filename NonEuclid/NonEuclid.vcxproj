@@ -45,7 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;C:\Libraries\SFML-2.0-rc\include;F:\Libraries\luajit\src;$(IncludePath)</IncludePath>
+    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;F:\Libraries\luabind-0.9.1\;C:\Libraries\SFML-2.0-rc\include;F:\Libraries\luajit\src;$(IncludePath)</IncludePath>
     <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Release;C:\Libraries\SFML-2.0-rc\lib;F:\Libraries\luajit\src;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\stack_content_by_name.cpp" />
     <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\weak_ref.cpp" />
     <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\wrapper_base.cpp" />
+    <ClCompile Include="graphics.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects.cpp" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies.h" />
+    <ClInclude Include="graphics.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="objects.h" />
     <ClInclude Include="scripting.h" />

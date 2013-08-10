@@ -44,7 +44,7 @@ void main( void )
 	int depth = 0;
 	
 	float STEP_SIZE = 0.2;
-	int MAX_DEPTH = 100;
+	int MAX_DEPTH = 200;
 	
 	vec3 currentPos = E;
 	

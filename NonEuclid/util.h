@@ -14,6 +14,4 @@ std::string &rtrim(std::string &s);
 // trim from both ends
 std::string &trim(std::string &s);
 
-
-
 #endif

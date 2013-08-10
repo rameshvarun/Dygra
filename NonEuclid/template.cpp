@@ -32,6 +32,8 @@ boost::regex endif_regex("\\{%\\s*endif\\s*%\\}");
 //Regexes for evaluating if statements
 boost::regex comparison_regex("([^=<>]*)\\s*(==|<=|>=|<|>)\\s*([^=<>]*)");
 
+
+
 //Returns the true or false value of a string expression
 bool templating::evaluate( std::string expression, Node* rootnode)
 {
@@ -294,6 +296,19 @@ std::string templating::render(const char* filename, Node* rootnode)
 
 
 	std::string result = expand(file, rootnode);
+
+	//Minification hack
+	for(int i = 0; i < 10; ++i)
+	{
+		replace_all(result, "\t", "");
+
+		replace_all(result, "  ", " ");
+
+		replace_all(result, "\r\n\r\n", "\r\n");
+
+		replace_all(result, "\n\n", "\n");
+		replace_all(result, "\r\r", "\r");
+	}
 
 	return result;
 }

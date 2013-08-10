@@ -26,7 +26,7 @@ public:
 
 	const char* type;
 
-	std::map<const char*, Object*> objects;
+	sf::Shader *shader;
 
 	bool castshadows;
 	bool recieveshadows;
@@ -148,6 +148,15 @@ public:
 	Vector3f scale;
 
 	bool cameraInside;
+
+	bool isInside(Vector3f point);
+
+	void setScale(float x, float y, float z);
+	void setMin(float x, float y, float z);
+	void setMax(float x, float y, float z);
+
+	Vector3f getMin();
+	Vector3f getMax();
 
 	virtual Node* getContext();
 };

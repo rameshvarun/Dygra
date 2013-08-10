@@ -309,5 +309,59 @@ Node* BoxAberration::getContext()
 	return context;
 }
 
+bool BoxAberration::isInside(Vector3f point)
+{
+	if( point.x > min.x && point.y > min.y && point.z > min.z )
+	{
+		if( point.x < max.x && point.y < max.y && point.z < max.z )
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+void BoxAberration::setScale( float x, float y, float z )
+{
+	scale.x = x;
+	scale.y = y;
+	scale.z = z;
+
+	std::string param = this->name + "_scale";
+
+	shader->setParameter( param, scale );
+}
+
+void BoxAberration::setMin( float x, float y, float z )
+{
+	min.x = x;
+	min.y = y;
+	min.z = z;
+
+	std::string param = this->name + "_min";
+
+	shader->setParameter( param, min );
+}
+
+void BoxAberration::setMax( float x, float y, float z )
+{
+	max.x = x;
+	max.y = y;
+	max.z = z;
+
+	std::string param = this->name + "_max";
+
+	shader->setParameter( param, max );
+}
+
+Vector3f BoxAberration::getMin()
+{
+	return min;
+}
+
+Vector3f BoxAberration::getMax()
+{
+	return max;
+}
 
 #pragma endregion
