@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="-0.68" speed="1.0" theta="2.15" x="-27.8596435319" y="32.4062209157" z="11.4925529013"/>
-	<BoxAberration cast="False" max="-0.208079414968, 5, -7.64405250092" min="-5.20807941497, 0, -12.6440525009" name="BoxAberration1" recieve="False" scale="1.0, 1.0, 0.1" selected="True" uniform="False"/>
-	<SpherePortal cast="False" name="SpherePortal1" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="-5.39340333334" x2="6.32155488386" y="1.0" y2="1.0" z="5.58839309288" z2="-4.49399699895"/>
+	<Camera phi="-1.5" speed="1.0" theta="2.3" x="1.41465145398" y="14.6626311616" z="16.8030468798"/>
+	<BoxAberration cast="False" max="-0.208079414968, 5.0, -7.64405250092" min="-5.20807941497, 0.0, -12.6440525009" name="BoxAberration1" recieve="False" scale="1.0, 1.0, 0.1" selected="False" uniform="False"/>
 	<Sphere cast="False" name="Duplicate3" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="-6.60479116743" y="1.0" z="-0.258223843084"/>
 	<Sphere cast="False" name="Duplicate2" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="1.0" y="1.0" z="-5.74854726213"/>
 	<SphereAberration cast="False" name="Duplicate1" r="3.43157251515" recieve="False" reflectivity="0.0" scale="0.5, 1.0, 1.0" selected="False" uniform="False" x="1.0" y="-0.0953019985261" z="-0.209312772774"/>
@@ -10,4 +9,19 @@
 	<Sphere cast="False" name="Sphere1" r="1.0" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="0.936749792342" y="1.0" z="5.9878755811"/>
 	<Plane c="0.0" name="Plane1" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
 	<Box cast="False" max="5.0, 5.0, -12.7917107275" min="-12.8664019036, 0.0, -32.7898240533" name="Box1" recieve="False" selected="False" uniform="False"/>
+	<script>function preBuildShader()
+	log(&quot;debug&quot;, &quot;preBuildShader&quot;)
+end
+
+
+
+function load()
+
+end
+
+
+
+function update( dt )
+
+end</script>
 </scene>

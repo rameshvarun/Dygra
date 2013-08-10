@@ -15,6 +15,9 @@ using namespace templating;
 Level::Level()
 {
 	shader = new sf::Shader();
+
+	script = scripting::newState();
+	luabind::globals(script)["level"] = this;
 }
 
 bool replace(std::string& str, const std::string& from, const std::string& to)
@@ -29,6 +32,15 @@ bool replace(std::string& str, const std::string& from, const std::string& to)
 
 void Level::BuildShader(sf::Vector2f resolution)
 {
+	try
+	{
+		luabind::call_function<void>(script,"preBuildShader");
+	}
+	catch(...)
+	{
+		BOOST_LOG_TRIVIAL(error) << "Error calling lua function preBuildShader.";
+	}
+
 	BOOST_LOG_TRIVIAL(debug) << "Building shader...";
 
 	Node *context = new Node();
@@ -232,6 +244,22 @@ void Level::LoadXML(const char* filename)
 		BOOST_LOG_TRIVIAL(debug) << "Lodaded Sphere Portal " << obj->name;
 		
 		this->AddObject(obj);
+	}
+
+	for(const XMLElement* element = scene->FirstChildElement("script"); element; element = element->NextSiblingElement("script"))
+	{
+		const char* scriptString = element->GetText();
+		
+		if(scriptString != NULL)
+		{
+			BOOST_LOG_TRIVIAL(debug) << "Lodaded lua script.";
+
+			luaL_dostring(script, scriptString);
+		}
+		else
+		{
+			BOOST_LOG_TRIVIAL(debug) << "This map does not have a lua script.";
+		}
 	}
 
 

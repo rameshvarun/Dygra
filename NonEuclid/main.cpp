@@ -5,13 +5,13 @@
 #include "level.h"
 
 #include "template.h"
+#include "scripting.h"
+
 
 using namespace templating;
 
 int main()
 {
-	//Log to a file
-	//boost::log::add_file_log("sample.log");
 
 #ifdef _DEBUG
 	BOOST_LOG_TRIVIAL(info) << "Running game in Debug mode.";
@@ -20,29 +20,28 @@ int main()
     (
         boost::log::trivial::severity >= boost::log::trivial::info
     );
+
+	//Log to a file
+	boost::log::add_file_log("sample.log");
 #endif
 	
 
 	PHYSFS_init(NULL);
 	PHYSFS_mount( "../content/", "", 1 );
 
-	BOOST_LOG_TRIVIAL(debug) << "Initialized filesystem.";
+	BOOST_LOG_TRIVIAL(debug) << "Initialized PhysFS filesystem.";
 
 	
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Shader");
+	sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Shader");
 	window.setVerticalSyncEnabled(true);
-
 	sf::RectangleShape shape = sf::RectangleShape(sf::Vector2f(window.getSize().x,window.getSize().y));
 
-	Level *level = new Level();
-
+	BOOST_LOG_TRIVIAL(debug) << "Window created.";
 	
+	Level *level = new Level();
 	level->LoadXML("test.xml");
 	
-
-	
-
 	level->BuildShader(sf::Vector2f(window.getSize().x,window.getSize().y) );
 
 

@@ -9,6 +9,8 @@
 
 #include "objects.h"
 
+#include "scripting.h"
+
 class Level
 {
 public:
@@ -18,6 +20,8 @@ public:
 	void BuildShader(sf::Vector2f resolution);
 
 	sf::Shader *shader;
+
+	lua_State* script;
 
 	void SetCamera(sf::Vector3f pos, sf::Vector3f up, sf::Vector3f look);
 

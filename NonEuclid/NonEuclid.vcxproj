@@ -39,14 +39,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Boost\msvc_10_32\boost_1_54_0;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\luajit\src;F:\Libraries\luabind-0.9.1;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;F:\Libraries\luajit\src;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;C:\Libraries\SFML-2.0-rc\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Release;C:\Libraries\SFML-2.0-rc\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;C:\Libraries\SFML-2.0-rc\include;F:\Libraries\luajit\src;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Release;C:\Libraries\SFML-2.0-rc\lib;F:\Libraries\luajit\src;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;physfs.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,13 +78,31 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;physfs.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_info.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_registry.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_rep.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\create_class.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\error.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\exception_handler.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\function.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\inheritance.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\link_compatibility.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\object_rep.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\open.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\pcall.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\scope.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\stack_content_by_name.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\weak_ref.cpp" />
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\wrapper_base.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects.cpp" />
+    <ClCompile Include="scripting.cpp" />
     <ClCompile Include="template.cpp" />
     <ClCompile Include="templatenode.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -94,6 +112,7 @@
     <ClInclude Include="dependencies.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="objects.h" />
+    <ClInclude Include="scripting.h" />
     <ClInclude Include="template.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="util.h" />

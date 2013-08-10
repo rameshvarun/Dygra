@@ -1,8 +1,7 @@
-#include "physfs.h"
-
-#include <string>
 
 #include "util.h"
+
+#include "dependencies.h"
 
 #include <algorithm> 
 #include <functional> 
@@ -45,3 +44,4 @@ std::string &rtrim(std::string &s) {
 std::string &trim(std::string &s) {
         return ltrim(rtrim(s));
 }
+

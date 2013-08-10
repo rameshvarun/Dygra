@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\luabind">
+      <UniqueIdentifier>{02656f5b-90c2-44fc-9d41-cfa3f231fa4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,60 @@
     <ClCompile Include="templatenode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\link_compatibility.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\object_rep.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\open.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\pcall.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\scope.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\stack_content_by_name.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\weak_ref.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\wrapper_base.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_info.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_registry.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\class_rep.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\create_class.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\error.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\exception_handler.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\function.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\inheritance.cpp">
+      <Filter>Source Files\luabind</Filter>
+    </ClCompile>
+    <ClCompile Include="scripting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="level.h">
@@ -54,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="template.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scripting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
