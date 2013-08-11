@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="40.79" speed="1.0" theta="2.48" x="8.51059884033" y="17.0332157842" z="4.14209248488"/>
+	<Camera phi="42.41" speed="1.0" theta="2.59" x="3.5472690574" y="17.4020163377" z="6.33535144833"/>
 	<Box cast="False" max="5.0, 5.0, 5.0" min="-9.99390458961, 0.0, 4.45956064412" name="Duplicate9" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="-9.45214482082, 5.0, 5.0" min="-9.97572694105, 0.0, -40.3057519058" name="Duplicate8" recieve="False" selected="False" uniform="False"/>
 	<BoxAberration cast="False" max="0.712161238076, 5.0, -11.2287779544" min="-2.39321493009, 0.0, -18.2143234645" name="BoxAberration1" recieve="False" scale="1.0, 1.0, 10.0" selected="False" uniform="True"/>
 	<SphereAberration cast="False" name="SphereAberration1" r="5.81780552073" recieve="False" reflectivity="0.0" scale="0.2, 1.0, 0.2" selected="False" uniform="False" x="-2.3682976511" y="0.351055482463" z="-27.0883350162"/>
 	<Box cast="False" max="-5.37339754595, 5.0, -11.0829679305" min="-9.98123713031, 0.0, -18.4190696226" name="Duplicate1" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="22.3233311519, 5.0, 5.0" min="4.47641787977, 0.0, -34.7237996169" name="Duplicate7" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="22.3233311519, 5.0, 5.0" min="4.47641787977, 0.0, -34.7237996169" name="Duplicate7" recieve="False" selected="True" uniform="False"/>
 	<Box cast="False" max="4.99444673818, 5.0, -11.0829679305" min="0.386607153826, 0.0, -18.3208108103" name="Duplicate6" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="-2.22648274203, 5.0, -11.0829679305" min="-2.75006486226, 0.0, -18.2858594167" name="Duplicate5" recieve="False" selected="False" uniform="False"/>
 	<Point name="PlayerSpawn" selected="False" uniform="False" x="-2.26566515015" y="2.30086162088" z="-3.36379316646"/>
@@ -19,38 +19,30 @@
 end
 function load()
 end
-
 min_x = 7
 max_x = 14
-
 min_y = -1
 max_y = 5
-
 min_z = -40
 max_z = -33
-
 scale_x = 1
 function update(dt)
 	camPos = level:getPos()
 	inside = BoxAberration1:isInside(camPos)
-
 	if camPos.x &gt; 5 and camPos.x &lt; 7 then
 		BoxAberration1:setScale(1 / scale_x, 1, 1)
-
 		BoxAberration1:setMin(min_x, min_y, min_z)
 		BoxAberration1:setMax(max_x, max_y, max_z)
 	end
-
 	if camPos.x &gt; 7 and inside then
 		BoxAberration1:setScale(1 / scale_x, 1, 1)
-
 		if scale_x &lt; 5 then
 			scale_x = scale_x + dt
 		end
-	end
-
-	if camPos.x &gt; 14 then
-		done = true
+	end
+
+	if camPos.x &gt; 14 then
+		done = true
 	end
 end</script>
 </scene>

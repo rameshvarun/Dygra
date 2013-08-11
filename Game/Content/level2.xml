@@ -1,39 +1,41 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="27.33" speed="1.0" theta="2.54" x="3.09863521447" y="11.1974146871" z="-27.7543434169"/>
-	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -1.31551704462" min="-2.23648379256, -1.61386254675, -4.25894639339" name="BoxAberration2" recieve="False" scale="1.0, 1.0, 20.0" selected="False" uniform="True"/>
-	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -9.25583909655" min="-2.23648379256, -1.61386254675, -12.1992684453" name="BoxAberration3" recieve="False" scale="1.0, 1.0, 20.0" selected="False" uniform="True"/>
+	<Camera phi="28.38" speed="1.0" theta="2.26" x="10.012127931" y="8.5721924053" z="-7.74066617775"/>
+	<Point name="End" selected="False" uniform="False" x="-0.353355351734" y="1" z="-30.8233427232"/>
+	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -1.31551704462" min="-2.23648379256, -1.61386254675, -8.2236595349" name="BoxAberration2" recieve="False" scale="1.0, 1.0, 20.0" selected="True" uniform="True"/>
+	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -13.6246370989" min="-2.23648379256, -1.61386254675, -18.4529079754" name="BoxAberration3" recieve="False" scale="1.0, 1.0, 20.0" selected="False" uniform="True"/>
 	<Point name="PlayerSpawn" selected="False" uniform="False" x="-0.753454556336" y="1.0" z="2.16680337715"/>
-	<Box cast="False" max="6.45421392214, 5.23061120491, -20.6611402584" min="1.09481134469, -1.51273635783, -26.9768964069" name="Box5" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="6.45421392214, 0.0215906361013, -12.3834134583" min="-7.79883146265, -1.51273635783, -26.9768964069" name="Box4" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="1.24230523621, 0.0215906361013, -4.39349959861" min="-1.9171188825, -1.51273635783, -9.09963458518" name="Box1" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="6.45421392214, 5.23061120491, -26.9224539668" min="1.09481134469, -1.51273635783, -33.2382101153" name="Box5" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="6.45421392214, 0.0215906361013, -18.6447271667" min="-7.79883146265, -1.51273635783, -33.2382101153" name="Box4" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="1.24230523621, 0.0215906361013, -8.40223217439" min="-1.9171188825, -1.51273635783, -13.5009794321" name="Box1" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="5.34226436394, 0.0215906361013, 4.27889865284" min="-5.63941467797, -1.51273635783, -1.25000749658" name="Box3" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="-1.91176640198, 5.23061120491, -20.6611402584" min="-7.79561619259, -1.51273635783, -26.9768964069" name="Box2" recieve="False" selected="True" uniform="False"/>
+	<Box cast="False" max="-1.91176640198, 5.23061120491, -26.9224539668" min="-7.79561619259, -1.51273635783, -33.2382101153" name="Box2" recieve="False" selected="False" uniform="False"/>
 	<script>function preBuildShader()
 end
 time = 0
-
 function load()
 	ab2_min = BoxAberration2:getMin()
 	ab2_max = BoxAberration2:getMax()
-
 	ab3_min = BoxAberration3:getMin()
-	ab3_max = BoxAberration3:getMax()
-end
-
-function update(dt)
-	time = time + dt
+	ab3_max = BoxAberration3:getMax()
 
-	camPos = level:getPos()
+	level:setPos( PlayerSpawn:getPos() )
+end
+function update(dt)
+	time = time + dt
 
+	camPos = level:getPos()
 	BoxAberration2:setMin( ab2_min.x + 5*math.sin( time ), ab2_min.y, ab2_min.z )
 	BoxAberration2:setMax( ab2_max.x + 5*math.sin( time ), ab2_max.y, ab2_max.z )
-
 	BoxAberration3:setMin( ab3_min.x - 5*math.sin( time ), ab3_min.y, ab3_min.z )
-	BoxAberration3:setMax( ab3_max.x - 5*math.sin( time ), ab3_max.y, ab3_max.z )
+	BoxAberration3:setMax( ab3_max.x - 5*math.sin( time ), ab3_max.y, ab3_max.z )
+
+	if camPos.z &lt; End:getPos().z then
+		done = true
+	end
 
-	if camPos.z &lt; -24 then
-		done = true
+	if camPos.y &lt; -20 then
+		level:setPos( PlayerSpawn:getPos() )
 	end
 end</script>
 </scene>

@@ -66,6 +66,11 @@ Node* Object::getContext()
 	return context;
 }
 
+float Object::intersect(Vector3f ro, Vector3f rd)
+{
+	return -1;
+}
+
 #pragma endregion
 
 #pragma region Sphere
@@ -134,6 +139,20 @@ Node* Plane::getContext()
 
 	return context;
 }
+
+float Plane::intersect(Vector3f ro, Vector3f rd)
+{
+	float dot1 = x*ro.x + y*ro.y + z*ro.z;
+	float dot2 = x*rd.x + y*rd.y + z*rd.z;
+
+	float t = -(dot1 + w)/dot2;
+
+	if(t > 0.0)
+		return t;
+	else
+		return -1;
+}
+
 
 #pragma endregion
 
@@ -240,6 +259,70 @@ Node* Box::getContext()
 	context->set("max", Vector3Node(x2, y2, z2) );
 
 	return context;
+}
+
+float Box::intersect(Vector3f ro, Vector3f rd)
+{
+	if (x1 < ro.x && y1 < ro.y && z1 < ro.z)
+	{
+		if( x2 > ro.x && y2 > ro.y && z2 > ro.z)
+		{
+			return -1;
+		}
+	}
+
+	float tmin = ( x1 - ro.x ) / rd.x;
+	float tmax = ( x2 - ro.x ) / rd.x;
+
+	if( tmin > tmax )
+	{
+		float temp = tmin;
+		tmin = tmax;
+		tmax = temp;
+	}
+
+	float tymin = ( y1 - ro.y ) / rd.y;
+	float tymax = ( y2 - ro.y ) / rd.y;
+
+	if(tymin > tymax)
+	{
+		float temp = tymin;
+		tymin = tymax;
+		tymax = temp;
+	}
+
+	if( tmin > tymax || tymin > tmax )
+		return -1;
+
+	if (tymin > tmin)
+		tmin = tymin;
+	if (tymax < tmax)
+		tmax = tymax;
+
+	float tzmin = ( z1 - ro.z ) / rd.z;
+	float tzmax = ( z2 - ro.z ) / rd.z;
+
+	if(tzmin > tzmax)
+	{
+		float temp = tzmin;
+		tzmin = tzmax;
+		tzmax = temp;
+	}
+
+	if ( tmin > tzmax || tzmin > tmax )
+		return -1;
+
+	if (tzmin > tmin)
+		tmin = tzmin;
+	if (tzmax < tmax)
+		tmax = tzmax;
+
+	if ( tmax < 0.0 )
+		return -1;
+
+	float t = tmin;
+
+	return t;
 }
 
 
@@ -362,6 +445,39 @@ Vector3f BoxAberration::getMin()
 Vector3f BoxAberration::getMax()
 {
 	return max;
+}
+
+#pragma endregion
+
+#pragma region Point
+
+Point::Point(std::string n, float xpos, float ypos, float zpos)
+{
+	name = n;
+	x = xpos;
+	y = ypos;
+	z = zpos;
+
+	uniform = false;
+
+	type = "point";
+
+	castshadows = false;
+	recieveshadows = false;
+}
+
+Node* Point::getContext()
+{
+	Node* context = Object::getContext();
+
+	context->set("pos", Vector3Node(x, y, z) );
+
+	return context;
+}
+
+Vector3f Point::getPos()
+{
+	return Vector3f(x, y, z);
 }
 
 #pragma endregion

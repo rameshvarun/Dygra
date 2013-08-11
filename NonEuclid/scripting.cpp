@@ -28,18 +28,21 @@ lua_State* scripting::newState()
 			.def("LoadXML", &Level::LoadXML)
 			.def("BuildShader", &Level::BuildShader)
 			.def("run", &Level::run)
-			.def("getPos", &Level::getPos),
+			.def("getPos", &Level::getPos)
+			.def("setPos", &Level::setPos),
 
 		//Vector3f
 		class_<Vector3f>("Vector3f")
 			.def(constructor<>())
+			.def(constructor<float, float, float>())
 			.def_readwrite("x", &Vector3f::x)
 			.def_readwrite("y", &Vector3f::y)
 			.def_readwrite("z", &Vector3f::z),
 
 		//Object
 		class_<Object>("Object")
-			.def_readonly("type", &Object::type),
+			.def_readonly("type", &Object::type)
+			.def("intersect", &Object::intersect),
 
 		class_<Sphere, Object>("Sphere"),
 
@@ -55,7 +58,10 @@ lua_State* scripting::newState()
 
 			.def_readwrite("min", &BoxAberration::min)
 			.def_readwrite("max", &BoxAberration::max)
-			.def_readwrite("scale", &BoxAberration::scale)
+			.def_readwrite("scale", &BoxAberration::scale),
+
+		class_<Point, Object>("Point")
+			.def("getPos", &Point::getPos)
     ];
 
 	return L;

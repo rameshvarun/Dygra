@@ -24,6 +24,10 @@ public:
 	Level(std::string rendererType);
 
 
+	float intersect(Vector3f ro, Vector3f rd);
+
+	bool software;
+
 	void BuildShader();
 	void SetCamera(sf::Vector3f pos, sf::Vector3f up, sf::Vector3f look);
 	void AddObject(Object* newobject);
@@ -31,6 +35,7 @@ public:
 	std::string run();
 
 	sf::Vector3f getPos();
+	void setPos(Vector3f newPos);
 
 	sf::Vector3f pos;
 };

@@ -28,11 +28,25 @@ Level::Level(std::string rendererType)
 	luabind::globals(script)["level"] = this;
 
 	luabind::globals(script)["done"] = false;
+
+	if( renderer.find("software") == std::string::npos )
+	{
+		software = false;
+	}
+	else
+	{
+		software = true;
+	}
 }
 
 sf::Vector3f Level::getPos()
 {
 	return pos;
+}
+
+void Level::setPos(Vector3f newPos)
+{
+	pos = newPos;
 }
 
 bool replace(std::string& str, const std::string& from, const std::string& to)
@@ -57,7 +71,7 @@ void Level::BuildShader()
 		BOOST_LOG_TRIVIAL(error) << "Error calling lua function preBuildShader.";
 	}
 
-	if(renderer.compare("software") != 0 )
+	if( !software )
 	{
 
 		BOOST_LOG_TRIVIAL(debug) << "Building shader...";
@@ -103,10 +117,12 @@ void Level::BuildShader()
 
 void Level::SetCamera(sf::Vector3f pos, sf::Vector3f up, sf::Vector3f look)
 {
-
-	shader->setParameter("cameraPos", pos);
-	shader->setParameter("cameraUp", up);
-	shader->setParameter("cameraLook", look);
+	if( !software )
+	{
+		shader->setParameter("cameraPos", pos);
+		shader->setParameter("cameraUp", up);
+		shader->setParameter("cameraLook", look);
+	}
 }
 
 void Level::AddObject(Object* newobject)
@@ -276,6 +292,8 @@ void Level::LoadXML(const char* filename)
 		this->AddObject(obj);
 	}
 
+#pragma region Script
+
 	for(const XMLElement* element = scene->FirstChildElement("script"); element; element = element->NextSiblingElement("script"))
 	{
 		const char* scriptString = element->GetText();
@@ -292,10 +310,53 @@ void Level::LoadXML(const char* filename)
 		}
 	}
 
+#pragma endregion
+
+#pragma region Point
+
+	for(const XMLElement* point = scene->FirstChildElement("Point"); point; point = point->NextSiblingElement("Point"))
+	{
+		std::string name = point->Attribute("name");
+
+		Point *obj = new Point(
+			name,
+			point->FloatAttribute("x"),
+			point->FloatAttribute("y"),
+			point->FloatAttribute("z")
+			);
+
+		BOOST_LOG_TRIVIAL(debug) << "Lodaded point " << obj->name;
+		
+		this->AddObject(obj);
+	}
+
+#pragma endregion
+
 
 	BOOST_LOG_TRIVIAL(debug) << "Finished loading map " << filename;
 
 	
+}
+
+float Level::intersect(Vector3f ro, Vector3f rd)
+{
+	float t = -1;
+
+	std::pair<const char*, Object*> kv; 
+	BOOST_FOREACH(kv, objects)
+	{
+		float result = kv.second->intersect(ro, rd);
+
+		if(result > 0)
+		{
+			if(t < 0 || result < t )
+			{
+				t = result;
+			}
+		}
+	}
+
+	return t;
 }
 
 std::string Level::run()
@@ -334,6 +395,8 @@ std::string Level::run()
 
 	BOOST_LOG_TRIVIAL(debug) << "Starting game loop.";
 
+	float velY = 0;
+
     while (window->isOpen())
 	{
 		sf::Event event;
@@ -368,7 +431,10 @@ std::string Level::run()
 		//Draw
 		window->clear(sf::Color(0,0,255));
 
-		window->draw(*shape, this->shader);
+		if(!software)
+		{
+			window->draw(*shape, this->shader);
+		}
 
 		window->display();
 
@@ -534,6 +600,61 @@ std::string Level::run()
 		{
 			pos.x += scalex*speed*dt*sin(phi + 3.14/2);
 			pos.z += scalez*speed*dt*cos(phi + 3.14/2);
+		}
+
+
+		//Collision detection
+		float PLAYER_WIDTH = 0.5;
+		float STEP_HEIGHT = 0.5;
+		float PLAYER_HEIGHT = 1;
+
+		Vector3f stepPos = pos - Vector3f(0, PLAYER_HEIGHT - STEP_HEIGHT, 0);
+
+		//X-Axis
+		float result = this->intersect(stepPos, Vector3f(1, 0, 0) );
+		if(result > 0 && result < PLAYER_WIDTH*scalex)
+		{
+			pos.x -= (PLAYER_WIDTH*scalex - result);
+		}
+		result = this->intersect(stepPos, Vector3f(-1, 0, 0) );
+		if(result > 0 && result < PLAYER_WIDTH*scalex)
+		{
+			pos.x += (PLAYER_WIDTH*scalex - result);
+		}
+
+		//Z-Axis
+		result = this->intersect(stepPos, Vector3f(0, 0, 1) );
+		if(result > 0 && result < PLAYER_WIDTH*scalez)
+		{
+			pos.z -= (PLAYER_WIDTH*scalez - result);
+		}
+		result = this->intersect(stepPos, Vector3f(0, 0, -1) );
+		if(result > 0 && result < PLAYER_WIDTH*scalez)
+		{
+			pos.z += (PLAYER_WIDTH*scalez - result);
+		}
+
+		float GRAVITY = 3.0;
+
+		//Y-Axis
+		result = this->intersect(pos, Vector3f(0, -1, 0) );
+		if(result > 0 && result < PLAYER_HEIGHT)
+		{
+			pos.y += (PLAYER_HEIGHT - result);
+			velY = 0;
+		}
+		else
+		{
+			velY -= GRAVITY*dt;
+			pos.y += velY*dt;
+		}
+
+		if(result > 0 && result < PLAYER_HEIGHT*1.01)
+		{
+			if( Keyboard::isKeyPressed(Keyboard::Space) )
+			{
+				velY = 2;
+			}
 		}
 
 		//Call update script

@@ -1,3 +1,12 @@
+initialize( 640, 480, false)
+
+level1 = Level( "raytracing" )
+level1:LoadXML("level2.xml")
+level1:BuildShader()
+level1:run()
+
+--[[
+
 require("wx")
 
 --Splits a string given some delimiter
@@ -101,3 +110,5 @@ frame:Centre()
 frame:Show(true)
 
 wx.wxGetApp():MainLoop()
+
+]]--

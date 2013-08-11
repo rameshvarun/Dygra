@@ -32,6 +32,8 @@ public:
 	bool recieveshadows;
 
 	virtual Node* getContext();
+
+	virtual float intersect(Vector3f ro, Vector3f rd);
 };
 
 class Sphere : public Object
@@ -60,6 +62,8 @@ public:
 	float w;
 
 	float reflectivity;
+
+	virtual float intersect(Vector3f ro, Vector3f rd);
 
 	virtual Node* getContext();
 };
@@ -120,6 +124,8 @@ public:
 	float z2;
 
 	virtual Node* getContext();
+
+	virtual float intersect(Vector3f ro, Vector3f rd);
 };
 
 class BoxPortal : public Object
@@ -161,6 +167,19 @@ public:
 	virtual Node* getContext();
 };
 
+class Point : public Object
+{
+public:
+	Point(std::string n, float xpos, float ypos, float zpos);
+
+	float x;
+	float y;
+	float z;
+
+	Vector3f getPos();
+
+	virtual Node* getContext();
+};
 
 
 #endif
