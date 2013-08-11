@@ -33,9 +33,7 @@ int main()
 
 	BOOST_LOG_TRIVIAL(debug) << "Initialized PhysFS filesystem.";
 
-	graphics::initialize();
-
-	BOOST_LOG_TRIVIAL(debug) << "Window created.";
+	
 
 	lua_State *mainscript = scripting::newState();
 	luaL_dostring(mainscript, file_to_string("main.lua").c_str() );

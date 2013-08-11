@@ -5,6 +5,8 @@
 #include "level.h"
 #include "objects.h"
 
+#include "graphics.h"
+
 using namespace luabind;
 
 lua_State* scripting::newState()
@@ -18,6 +20,7 @@ lua_State* scripting::newState()
     [
 		//Helper functions for script
         def("log", &scripting::log),
+		def("initialize", &graphics::initialize),
 
 		//Level class
 		class_<Level>("Level")

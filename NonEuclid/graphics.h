@@ -5,13 +5,15 @@
 
 namespace graphics
 {
-	void initialize();
+	void initialize(int width, int height, bool startFullscreen);
 
 	sf::RenderWindow* getWindow();
 
 	sf::RectangleShape* getShape();
 
 	sf::Vector2f getResolution();
+
+	void toggleFullscreen();
 }
 
 #endif

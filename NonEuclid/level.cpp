@@ -349,6 +349,9 @@ std::string Level::run()
                         window->close();
                         break;
 
+					case sf::Keyboard::F:
+						graphics::toggleFullscreen();
+
                     default:
                         break;
                 }
