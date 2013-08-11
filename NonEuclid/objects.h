@@ -107,6 +107,11 @@ public:
 	bool cameraInside;
 
 	virtual Node* getContext();
+
+	Vector3f getPos();
+	void setScale(float x, float y, float z);
+
+	void setPos( float xPos, float yPos, float zPos );
 };
 
 

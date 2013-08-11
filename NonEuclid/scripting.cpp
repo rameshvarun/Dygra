@@ -29,7 +29,8 @@ lua_State* scripting::newState()
 			.def("BuildShader", &Level::BuildShader)
 			.def("run", &Level::run)
 			.def("getPos", &Level::getPos)
-			.def("setPos", &Level::setPos),
+			.def("setPos", &Level::setPos)
+			.def("showText", &Level::showText),
 
 		//Vector3f
 		class_<Vector3f>("Vector3f")
@@ -45,6 +46,11 @@ lua_State* scripting::newState()
 			.def("intersect", &Object::intersect),
 
 		class_<Sphere, Object>("Sphere"),
+
+		class_<SphereAberration, Object>("SphereAberration")
+			.def("getPos", &SphereAberration::getPos)
+			.def("setPos", &SphereAberration::setPos)
+			.def("setScale", &SphereAberration::setScale),
 
 		class_<BoxAberration, Object>("BoxAberration")
 			.def("isInside", &BoxAberration::isInside)

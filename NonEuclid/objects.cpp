@@ -227,6 +227,33 @@ Node* SphereAberration::getContext()
 	return context;
 }
 
+void SphereAberration::setScale( float x, float y, float z )
+{
+	scalex = x;
+	scaley = y;
+	scalez = z;
+
+	std::string param = this->name + "_scale";
+
+	shader->setParameter( param, Vector3f(scalex, scaley, scalez) );
+}
+
+void SphereAberration::setPos( float xPos, float yPos, float zPos )
+{
+	x = xPos;
+	y = yPos;
+	z = zPos;
+
+	std::string param = this->name;
+
+	shader->setParameter( param, x, y, z, radius );
+}
+
+Vector3f SphereAberration::getPos()
+{
+	return Vector3f(x, y, z);
+}
+
 #pragma endregion
 
 #pragma region Box

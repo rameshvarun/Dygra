@@ -26,6 +26,9 @@ public:
 
 	float intersect(Vector3f ro, Vector3f rd);
 
+	float textTime;
+	sf::Text displayText;
+
 	bool software;
 
 	void BuildShader();
@@ -38,6 +41,8 @@ public:
 	void setPos(Vector3f newPos);
 
 	sf::Vector3f pos;
+
+	void showText(float timeToDisplay, const char* textToDisplay, int charSize);
 };
 
 #endif

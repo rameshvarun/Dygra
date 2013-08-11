@@ -14,6 +14,8 @@ namespace graphics
 	sf::Vector2f getResolution();
 
 	void toggleFullscreen();
+
+	sf::Font* getFont(std::string fontname);
 }
 
 #endif

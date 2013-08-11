@@ -37,6 +37,9 @@ Level::Level(std::string rendererType)
 	{
 		software = true;
 	}
+
+	textTime = 0;
+	displayText.setFont( *graphics::getFont("FreeSansBold") );
 }
 
 sf::Vector3f Level::getPos()
@@ -249,6 +252,8 @@ void Level::LoadXML(const char* filename)
 		std::vector<std::string> scale = split( sphereab->Attribute("scale"), ',');
 		//Vector3f scalef = Vector3f(  , , );
 
+		bool uniform = std::string( sphereab->Attribute("uniform") ).compare("True") == 0;
+
 		SphereAberration *obj = new SphereAberration(
 			name,
 			sphereab->FloatAttribute("r"),
@@ -260,7 +265,7 @@ void Level::LoadXML(const char* filename)
 			atof(scale[1].c_str()),
 			atof(scale[2].c_str()),
 
-			sphereab->BoolAttribute("uniform")
+			uniform
 			);
 		
 		BOOST_LOG_TRIVIAL(debug) << "Lodaded Sphere Aberration " << obj->name;
@@ -359,6 +364,32 @@ float Level::intersect(Vector3f ro, Vector3f rd)
 	return t;
 }
 
+float lowestDist( std::list<float> distances )
+{
+	float result = -1;
+
+	BOOST_FOREACH(float dist, distances)
+	{
+		if(dist > 0)
+		{
+			if(result < 0 || result > dist)
+			{
+				result = dist;
+			}
+		}
+	}
+
+	return result;
+}
+
+void Level::showText(float timeToDisplay, const char* textToDisplay, int charSize)
+{
+	textTime = timeToDisplay;
+
+	displayText.setString( textToDisplay );
+	displayText.setCharacterSize(charSize);
+}
+
 std::string Level::run()
 {
 	sf::RenderWindow* window = graphics::getWindow();
@@ -436,13 +467,18 @@ std::string Level::run()
 			window->draw(*shape, this->shader);
 		}
 
+		if(textTime > 0)
+		{
+			window->draw(displayText);
+		}
+
 		window->display();
 
 		//Update
 		float dt = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
-
+		textTime -= dt;
 
 		float sensitivity = 0.1f;
 		sf::Vector2i mrel = Mouse::getPosition(*window) - sf::Vector2i(window->getSize().x/2, window->getSize().y/2);
@@ -602,6 +638,16 @@ std::string Level::run()
 			pos.z += scalez*speed*dt*cos(phi + 3.14/2);
 		}
 
+		if(Mouse::isButtonPressed( Mouse::Left ) )
+			luabind::globals(script)["LeftMouse"] = true;
+		else
+			luabind::globals(script)["LeftMouse"] = false;
+
+		if(Mouse::isButtonPressed( Mouse::Right ) )
+			luabind::globals(script)["RightMouse"] = true;
+		else
+			luabind::globals(script)["RightMouse"] = false;
+		
 
 		//Collision detection
 		float PLAYER_WIDTH = 0.5;
@@ -637,7 +683,17 @@ std::string Level::run()
 		float GRAVITY = 3.0;
 
 		//Y-Axis
-		result = this->intersect(pos, Vector3f(0, -1, 0) );
+		std::list<float> results;
+		results.push_back( this->intersect(pos, Vector3f(0, -1, 0) ) );
+
+		results.push_back( this->intersect(pos + Vector3f(PLAYER_WIDTH*scalex, 0, 0), Vector3f(0, -1, 0) ) );
+		results.push_back( this->intersect(pos - Vector3f(PLAYER_WIDTH*scalex, 0, 0), Vector3f(0, -1, 0) ) );
+
+		results.push_back( this->intersect(pos + Vector3f(PLAYER_WIDTH*scalez, 0, 0), Vector3f(0, -1, 0) ) );
+		results.push_back( this->intersect(pos - Vector3f(PLAYER_WIDTH*scalez, 0, 0), Vector3f(0, -1, 0) ) );
+
+		
+		result = lowestDist( results );
 		if(result > 0 && result < PLAYER_HEIGHT)
 		{
 			pos.y += (PLAYER_HEIGHT - result);

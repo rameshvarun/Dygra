@@ -1,9 +1,13 @@
+
 initialize( 640, 480, false)
 
 level1 = Level( "raytracing" )
-level1:LoadXML("level2.xml")
+level1:LoadXML("level3.xml")
 level1:BuildShader()
 level1:run()
+
+
+level_list = { 'level1.xml', 'level2.xml', 'level3.xml' }
 
 --[[
 
@@ -47,15 +51,16 @@ function startGame( event )
 	
 	initialize( w, h, f)
 	
-	level1 = Level( rtype )
-	level1:LoadXML("level1.xml")
-	level1:BuildShader()
-	level1:run()
-	
-	level2 = Level( rtype )
-	level2:LoadXML("level2.xml")
-	level2:BuildShader()
-	level2:run()
+	for _, level_file in ipairs(level_list) do
+		level1 = Level( rtype )
+		level1:LoadXML( level_file )
+		level1:BuildShader()
+		local level_result = level1:run()
+		
+		if level_result == "exit" then
+			break
+		end
+	end
 end
 
 --Graphical Settings Dialog

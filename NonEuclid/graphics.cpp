@@ -10,6 +10,16 @@ bool fullscreen;
 int WINDOW_WIDTH = 640;
 int WINDOW_HEGIHT = 480;
 
+sf::Font* FreeSansBold;
+
+sf::Font* graphics::getFont(std::string fontname)
+{
+	if( fontname.compare("FreeSansBold") == 0 )
+	{
+		return FreeSansBold;
+	}
+}
+
 void graphics::initialize(int width, int height, bool startFullscreen)
 {
 	WINDOW_WIDTH = width;
@@ -33,6 +43,10 @@ void graphics::initialize(int width, int height, bool startFullscreen)
 	shape = new sf::RectangleShape(sf::Vector2f(window->getSize().x,window->getSize().y));
 
 	fullscreen = startFullscreen;
+
+	//Load fonts
+	FreeSansBold = new sf::Font();
+	FreeSansBold->loadFromFile( "../content/font/FreeSansBold.ttf" );
 }
 
 sf::RenderWindow* graphics::getWindow()
