@@ -38,11 +38,15 @@ function startGame( event )
 	
 	initialize( w, h, f)
 	
-	level = Level( rtype )
-	level:LoadXML("level1.xml")
-
-	level:BuildShader()
-	level:run()
+	level1 = Level( rtype )
+	level1:LoadXML("level1.xml")
+	level1:BuildShader()
+	level1:run()
+	
+	level2 = Level( rtype )
+	level2:LoadXML("level2.xml")
+	level2:BuildShader()
+	level2:run()
 end
 
 --Graphical Settings Dialog
@@ -56,6 +60,7 @@ res_text = wx.wxStaticText(panel, -1, "Resolution: ")
 sizer:Add(res_text , 0, wx.wxALL, 10)
 
 res_select = wx.wxComboBox(panel, -1, "640 x 480")
+res_select:Append("320 x 240")
 res_select:Append("640 x 480")
 res_select:Append("800 x 600")
 res_select:Append("1280 x 720")

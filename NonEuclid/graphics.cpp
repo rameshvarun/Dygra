@@ -28,6 +28,7 @@ void graphics::initialize(int width, int height, bool startFullscreen)
 
 
 	window->setVerticalSyncEnabled(true);
+	window->setMouseCursorVisible(false);
 
 	shape = new sf::RectangleShape(sf::Vector2f(window->getSize().x,window->getSize().y));
 

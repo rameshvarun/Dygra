@@ -17,40 +17,40 @@
 	<Box cast="False" max="-1.35986277591, 4.85530464549, -26.3553993541" min="-3.0996304013, 3.27373890417, -27.826895978" name="Duplicate14" recieve="False" selected="False" uniform="False"/>
 	<script>function preBuildShader()
 end
-
 function load()
-end
-
-min_x = 7
-max_x = 14
-
-min_y = -1
-max_y = 5
-
-min_z = -40
-max_z = -33
-
+end
+
+min_x = 7
+max_x = 14
+
+min_y = -1
+max_y = 5
+
+min_z = -40
+max_z = -33
+
 scale_x = 1
-
 function update(dt)
-
 	camPos = level:getPos()
+	inside = BoxAberration1:isInside(camPos)
 
-	inside = BoxAberration1:isInside(camPos)
-
-	if camPos.x &gt; 5 and camPos.x &lt; 7 then
-		BoxAberration1:setScale(1 / scale_x, 1, 1)
-
-		BoxAberration1:setMin(min_x, min_y, min_z)
-		BoxAberration1:setMax(max_x, max_y, max_z)
+	if camPos.x &gt; 5 and camPos.x &lt; 7 then
+		BoxAberration1:setScale(1 / scale_x, 1, 1)
+
+		BoxAberration1:setMin(min_x, min_y, min_z)
+		BoxAberration1:setMax(max_x, max_y, max_z)
+	end
+
+	if camPos.x &gt; 7 and inside then
+		BoxAberration1:setScale(1 / scale_x, 1, 1)
+
+		if scale_x &lt; 5 then
+			scale_x = scale_x + dt
+		end
 	end
 
-	if camPos.x &gt; 7 and inside then
-		BoxAberration1:setScale(1 / scale_x, 1, 1)
-
-		if scale_x &lt; 5 then
-			scale_x = scale_x + dt
-		end
+	if camPos.x &gt; 14 then
+		done = true
 	end
 end</script>
 </scene>

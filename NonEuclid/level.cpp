@@ -26,6 +26,8 @@ Level::Level(std::string rendererType)
 
 	script = scripting::newState();
 	luabind::globals(script)["level"] = this;
+
+	luabind::globals(script)["done"] = false;
 }
 
 sf::Vector3f Level::getPos()
@@ -358,6 +360,11 @@ std::string Level::run()
             }
 		}
 
+		if( luabind::globals(script)["done"] == true )
+		{
+			return "finish";
+		}
+
 		//Draw
 		window->clear(sf::Color(0,0,255));
 
@@ -541,5 +548,5 @@ std::string Level::run()
 		
 	}
 
-	return "";
+	return "exit";
 }

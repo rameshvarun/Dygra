@@ -38,5 +38,7 @@ int main()
 	lua_State *mainscript = scripting::newState();
 	luaL_dostring(mainscript, file_to_string("main.lua").c_str() );
 
-	
+	graphics::getWindow()->close();
+
+	exit(0);
 }
