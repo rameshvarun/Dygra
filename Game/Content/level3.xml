@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="11.4" speed="1.0" theta="2.66" x="-1.37478731104" y="31.8249743104" z="19.7041215534"/>
+	<Camera phi="11.82" speed="1.0" theta="2.54" x="-6.81875212256" y="65.9846617837" z="37.5916822799"/>
 	<Point name="EndPoint" selected="False" uniform="False" x="25.2077018562" y="4.52421477282" z="12.5735770812"/>
 	<Box cast="False" max="10.4144226551, 0.877123923047, 18.1878928859" min="0.295966764534, 0.0, 3.69934013082" name="Box11" recieve="False" selected="False" uniform="False"/>
 	<SphereAberration cast="False" name="PlayerAberration" r="2.38582115832" recieve="False" reflectivity="0.0" scale="1.0, 1.0, 1.0" selected="False" uniform="True" x="1.0" y="1.0" z="-4.38766699855"/>

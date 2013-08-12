@@ -30,7 +30,7 @@ void main( void )
 	vec3 B=cross(A, C);
 	vec3 M=(E+C);
 
-	//Calculate screen coordinages
+	//Calculate screen coordinates
 	vec2 vPos=2.0*gl_FragCoord.xy/resolution.xy - 1.0; 
 	vec3 P=M + vPos.x*A*resolution.x/resolution.y + vPos.y*B;
 	vec3 rayDir=normalize(P-E);

@@ -26,10 +26,11 @@ public:
 
 	float intersect(Vector3f ro, Vector3f rd);
 
-	float textTime;
-	sf::Text displayText;
-
+	//Related to softwarer renderer
+	sf::Texture softwareTexture;
+	sf::Sprite softwareSprite;
 	bool software;
+	void softRender();
 
 	void BuildShader();
 	void SetCamera(sf::Vector3f pos, sf::Vector3f up, sf::Vector3f look);
@@ -37,11 +38,18 @@ public:
 	void LoadXML(const char* filename);
 	std::string run();
 
+	//Functions exposed to script
 	sf::Vector3f getPos();
 	void setPos(Vector3f newPos);
 
+	//Camera info
 	sf::Vector3f pos;
+	sf::Vector3f up;
+	sf::Vector3f look;
 
+	//Displaying hint text on screen
+	float textTime;
+	sf::Text displayText;
 	void showText(float timeToDisplay, const char* textToDisplay, int charSize);
 };
 

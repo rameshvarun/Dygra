@@ -1,7 +1,7 @@
 
 #include "util.h"
 
-#include "dependencies.h"
+
 
 #include <algorithm> 
 #include <functional> 
@@ -45,3 +45,23 @@ std::string &trim(std::string &s) {
         return ltrim(rtrim(s));
 }
 
+float length( Vector3f a)
+{
+	return sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
+}
+
+Vector3f normalize( Vector3f a)
+{
+	float len = length(a);
+
+	return Vector3f( a.x/len, a.y/len, a.z/len);
+}
+
+Vector3f cross( Vector3f left, Vector3f right )
+{
+	return Vector3f(
+		left.y * right.z - left.z * right.y,
+		left.z * right.x - left.x * right.z,
+		left.x * right.y - left.y * right.x
+		);
+}

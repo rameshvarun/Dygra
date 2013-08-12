@@ -36,10 +36,15 @@ Level::Level(std::string rendererType)
 	else
 	{
 		software = true;
+
+		softwareTexture.create( graphics::getWindow()->getSize().x, graphics::getWindow()->getSize().y );
+		softwareSprite.setTexture( softwareTexture );
 	}
 
 	textTime = 0;
 	displayText.setFont( *graphics::getFont("FreeSansBold") );
+
+	
 }
 
 sf::Vector3f Level::getPos()
@@ -395,8 +400,8 @@ std::string Level::run()
 	sf::RenderWindow* window = graphics::getWindow();
 	sf::RectangleShape* shape = graphics::getShape();
 
-	sf::Vector3f up = sf::Vector3f(0,1,0);
-	sf::Vector3f look = sf::Vector3f(0.0,0.0,0.0);
+	up = sf::Vector3f(0,1,0);
+	look = sf::Vector3f(0.0,0.0,0.0);
 
 	float theta = 1.24f;
 	float phi = 3.14f;
@@ -465,6 +470,11 @@ std::string Level::run()
 		if(!software)
 		{
 			window->draw(*shape, this->shader);
+		}
+		else
+		{
+			this->softRender();
+			window->draw(softwareSprite);
 		}
 
 		if(textTime > 0)
