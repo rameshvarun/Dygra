@@ -1,8 +1,8 @@
 
-initialize( 640, 480, false)
+initialize( 800, 600, false)
 
-level1 = Level( "software" )
-level1:LoadXML("level1.xml")
+level1 = Level( "raytracing" )
+level1:LoadXML("level3.xml")
 level1:BuildShader()
 level1:run()
 

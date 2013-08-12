@@ -79,6 +79,16 @@ void Level::BuildShader()
 		BOOST_LOG_TRIVIAL(error) << "Error calling lua function preBuildShader.";
 	}
 
+	//Expose all level objects to the script
+	std::pair<const char*, Object*> kv; 
+	BOOST_FOREACH(kv, objects)
+	{
+		luabind::globals(script)[kv.first] = kv.second;
+
+		kv.second->shader = shader;
+		kv.second->objects = objects;
+	}
+
 	if( !software )
 	{
 
@@ -166,6 +176,8 @@ void Level::LoadXML(const char* filename)
 	{
 		std::string name = plane->Attribute("name");
 
+		bool recieve = std::string( plane->Attribute("recieve") ).compare("True") == 0;
+
 		Plane *obj = new Plane(
 			name,
 			plane->FloatAttribute("x"),
@@ -174,7 +186,7 @@ void Level::LoadXML(const char* filename)
 			plane->FloatAttribute("c"),
 			plane->FloatAttribute("reflectivity"),
 			plane->BoolAttribute("uniform"),
-			plane->BoolAttribute("recieve")
+			recieve
 			);
 
 		BOOST_LOG_TRIVIAL(debug) << "Lodaded plane " << obj->name;
@@ -186,6 +198,8 @@ void Level::LoadXML(const char* filename)
 	{
 		std::string name = sphere->Attribute("name");
 
+		bool cast = std::string( sphere->Attribute("cast") ).compare("True") == 0;
+
 		Sphere *obj = new Sphere(
 			name,
 			sphere->FloatAttribute("x"),
@@ -194,7 +208,7 @@ void Level::LoadXML(const char* filename)
 			sphere->FloatAttribute("r"),
 			sphere->FloatAttribute("reflectivity"),
 			sphere->BoolAttribute("uniform"),
-			sphere->BoolAttribute("cast"),
+			cast,
 			sphere->BoolAttribute("recieve")
 			);
 
@@ -210,6 +224,8 @@ void Level::LoadXML(const char* filename)
 		std::vector<std::string> min = split( box->Attribute("min"), ',');
 		std::vector<std::string> max = split( box->Attribute("max"), ',');
 
+		bool cast = std::string( box->Attribute("cast") ).compare("True") == 0;
+
 		Box *obj = new Box(
 			name,
 			atof(min[0].c_str()),
@@ -219,7 +235,7 @@ void Level::LoadXML(const char* filename)
 			atof(max[1].c_str()),
 			atof(max[2].c_str()),
 			box->BoolAttribute("uniform"),
-			box->BoolAttribute("cast"),
+			cast,
 			box->BoolAttribute("recieve")
 			);
 
@@ -250,6 +266,8 @@ void Level::LoadXML(const char* filename)
 		this->AddObject(obj);
 	}
 
+#pragma region SphereAberration
+
 	for(const XMLElement* sphereab = scene->FirstChildElement("SphereAberration"); sphereab; sphereab = sphereab->NextSiblingElement("SphereAberration"))
 	{
 		std::string name = sphereab->Attribute("name");
@@ -278,6 +296,11 @@ void Level::LoadXML(const char* filename)
 		this->AddObject(obj);
 	}
 
+#pragma endregion
+
+
+#pragma region SpherePortal
+
 	for(const XMLElement* sphereportal = scene->FirstChildElement("SpherePortal"); sphereportal; sphereportal = sphereportal->NextSiblingElement("SpherePortal"))
 	{
 		std::string name = sphereportal->Attribute("name");
@@ -301,6 +324,8 @@ void Level::LoadXML(const char* filename)
 		
 		this->AddObject(obj);
 	}
+
+#pragma endregion
 
 #pragma region Script
 
@@ -410,14 +435,6 @@ std::string Level::run()
 
 	sf::Clock clock;
 
-	//Expose all level objects to the script
-	std::pair<const char*, Object*> kv; 
-	BOOST_FOREACH(kv, objects)
-	{
-		luabind::globals(script)[kv.first] = kv.second;
-
-		kv.second->shader = shader;
-	}
 
 	//Call load script
 	try
@@ -531,27 +548,21 @@ std::string Level::run()
 
 				double dist2 = sqrt(pow(pos.x - portal->x2, 2) + pow(pos.y - portal->y2, 2) + pow(pos.z - portal->z2, 2));
 
-				if(dist1 < portal->radius && portal->cameraInside == false)
+				if(dist1 > portal->radius && portal->cameraInside1 == true)
 				{
 					pos.x = (pos.x - portal->x1) + portal->x2;
 					pos.y = (pos.y - portal->y1) + portal->y2;
 					pos.z = (pos.z - portal->z1) + portal->z2;
 				}
-				if(dist2 < portal->radius && portal->cameraInside == false)
+				if(dist2 > portal->radius && portal->cameraInside2 == true)
 				{
 					pos.x = (pos.x - portal->x2) + portal->x1;
 					pos.y = (pos.y - portal->y2) + portal->y1;
 					pos.z = (pos.z - portal->z2) + portal->z1;
 				}
 
-				if(dist1 < portal->radius || dist2 < portal->radius)
-				{
-					portal->cameraInside = true;
-				}
-				else
-				{
-					portal->cameraInside = false;
-				}
+				portal->cameraInside1 = dist1 < portal->radius;
+				portal->cameraInside2 = dist2 < portal->radius;
 				
 			}
 
@@ -662,7 +673,7 @@ std::string Level::run()
 		//Collision detection
 		float PLAYER_WIDTH = 0.5;
 		float STEP_HEIGHT = 0.5;
-		float PLAYER_HEIGHT = 1;
+		float PLAYER_HEIGHT = 1*scaley;
 
 		Vector3f stepPos = pos - Vector3f(0, PLAYER_HEIGHT - STEP_HEIGHT, 0);
 
@@ -706,7 +717,7 @@ std::string Level::run()
 		result = lowestDist( results );
 		if(result > 0 && result < PLAYER_HEIGHT)
 		{
-			pos.y += (PLAYER_HEIGHT - result);
+			pos.y += (PLAYER_HEIGHT - result)*0.99;
 			velY = 0;
 		}
 		else

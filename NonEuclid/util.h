@@ -20,4 +20,6 @@ Vector3f normalize( Vector3f a );
 
 Vector3f cross( Vector3f left, Vector3f right );
 
+float dot( Vector3f left, Vector3f right );
+
 #endif

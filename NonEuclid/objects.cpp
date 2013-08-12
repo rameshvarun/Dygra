@@ -22,11 +22,11 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 	{
 		Object* obj = (*it).second;
 
-		if(obj->name.compare( name ) == 0)
+		if(obj->name.compare( name ) != 0)
 		{
 			if(obj->type == "sphere" && obj->castshadows)
 			{
-				std::string shad = file_to_string( "shaders/sphereshadow.frag" );
+				std::string shad = file_to_string( "shaders/raytracing/sphereshadow.frag" );
 
 				replaceAll(shad, "{{NAME}}", obj->name);
 
@@ -35,7 +35,7 @@ std::string ShadowCode(std::map<const char*, Object*> objects, std::string name)
 
 			if(obj->type == "box" && obj->castshadows)
 			{
-				std::string shad = file_to_string( "shaders/boxshadow.frag" );
+				std::string shad = file_to_string( "shaders/raytracing/boxshadow.frag" );
 
 				replaceAll(shad, "{{NAME}}", obj->name);
 
@@ -62,6 +62,11 @@ Node* Object::getContext()
 
 	context->set("castshadows", castshadows );
 	context->set("recieveshadows", recieveshadows );
+
+	if(recieveshadows)
+	{
+		context->set("shadowcode", ShadowCode(objects, name).c_str() );
+	}
 
 	return context;
 }
@@ -103,6 +108,26 @@ Node* Sphere::getContext()
 	context->set("pos", Vector3Node(x, y, z) );
 
 	return context;
+}
+
+float Sphere::intersect(Vector3f ro, Vector3f rd)
+{
+	Vector3f d = ro - Vector3f(x, y, z);
+
+	float b = dot(rd, d);
+
+	float c = dot(d, d) - radius*radius;
+
+	float t = b*b - c;
+
+	if (t > 0)
+	{
+		t = - b -sqrt(t);
+		
+		return t;
+	}
+
+	return -1;
 }
 
 #pragma endregion
@@ -175,7 +200,8 @@ SpherePortal::SpherePortal(std::string n, float r, float xpos1, float ypos1, flo
 
 	type = "sphereportal";
 
-	cameraInside = false;
+	cameraInside1 = false;
+	cameraInside2 = false;
 }
 
 Node* SpherePortal::getContext()

@@ -1,18 +1,18 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="42.41" speed="1.0" theta="2.59" x="3.5472690574" y="17.4020163377" z="6.33535144833"/>
-	<Box cast="False" max="5.0, 5.0, 5.0" min="-9.99390458961, 0.0, 4.45956064412" name="Duplicate9" recieve="False" selected="False" uniform="False"/>
+	<Camera phi="42.06" speed="0.88209" theta="1.87" x="2.77864131951" y="3.23158151558" z="-2.73111226128"/>
+	<Box cast="True" max="5.0, 5.0, 5.0" min="-9.99390458961, 0.0, 4.45956064412" name="Duplicate9" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="-9.45214482082, 5.0, 5.0" min="-9.97572694105, 0.0, -40.3057519058" name="Duplicate8" recieve="False" selected="False" uniform="False"/>
 	<BoxAberration cast="False" max="0.712161238076, 5.0, -11.2287779544" min="-2.39321493009, 0.0, -18.2143234645" name="BoxAberration1" recieve="False" scale="1.0, 1.0, 10.0" selected="False" uniform="True"/>
 	<SphereAberration cast="False" name="SphereAberration1" r="5.81780552073" recieve="False" reflectivity="0.0" scale="0.2, 1.0, 0.2" selected="False" uniform="False" x="-2.3682976511" y="0.351055482463" z="-27.0883350162"/>
-	<Box cast="False" max="-5.37339754595, 5.0, -11.0829679305" min="-9.98123713031, 0.0, -18.4190696226" name="Duplicate1" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="22.3233311519, 5.0, 5.0" min="4.47641787977, 0.0, -34.7237996169" name="Duplicate7" recieve="False" selected="True" uniform="False"/>
-	<Box cast="False" max="4.99444673818, 5.0, -11.0829679305" min="0.386607153826, 0.0, -18.3208108103" name="Duplicate6" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="-2.22648274203, 5.0, -11.0829679305" min="-2.75006486226, 0.0, -18.2858594167" name="Duplicate5" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="-5.37339754595, 5.0, -11.0829679305" min="-9.98123713031, 0.0, -18.4190696226" name="Duplicate1" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="22.3233311519, 5.0, 5.0" min="4.47641787977, 0.0, -34.7237996169" name="Duplicate7" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="4.99444673818, 5.0, -11.0829679305" min="0.386607153826, 0.0, -18.3208108103" name="Duplicate6" recieve="False" selected="True" uniform="False"/>
+	<Box cast="True" max="-2.22648274203, 5.0, -11.0829679305" min="-2.75006486226, 0.0, -18.2858594167" name="Duplicate5" recieve="False" selected="False" uniform="False"/>
 	<Point name="PlayerSpawn" selected="False" uniform="False" x="-2.26566515015" y="2.30086162088" z="-3.36379316646"/>
-	<Plane c="0.0" name="Plane1" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
+	<Plane c="0.0" name="Plane1" recieve="True" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
 	<Box cast="False" max="-0.98857595553, 3.28055683645, -25.981841657" min="-3.51313492192, 1.71129196176, -28.2376274669" name="Duplicate13" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="-0.604219456588, 1.71755680026, -25.5259501048" min="-3.99790769935, 0.0, -28.6452551086" name="Duplicate11" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="-0.604219456588, 1.71755680026, -25.5259501048" min="-3.99790769935, 0.0, -28.6452551086" name="Duplicate11" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="22.8192357232, 5.0, -39.6309646419" min="-9.99390458961, 0.0, -40.1714039978" name="Duplicate10" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="-1.35986277591, 4.85530464549, -26.3553993541" min="-3.0996304013, 3.27373890417, -27.826895978" name="Duplicate14" recieve="False" selected="False" uniform="False"/>
 	<script>function preBuildShader()
@@ -40,7 +40,6 @@ function update(dt)
 			scale_x = scale_x + dt
 		end
 	end
-
 	if camPos.x &gt; 14 then
 		done = true
 	end

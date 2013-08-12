@@ -26,7 +26,9 @@ public:
 
 	const char* type;
 
+	//References back to stuff that the level object owns
 	sf::Shader *shader;
+	std::map<const char*, Object*> objects;
 
 	bool castshadows;
 	bool recieveshadows;
@@ -49,6 +51,8 @@ public:
 	float reflectivity;
 
 	virtual Node* getContext();
+
+	virtual float intersect(Vector3f ro, Vector3f rd);
 };
 
 class Plane : public Object
@@ -84,9 +88,12 @@ public:
 	float y2;
 	float z2;
 
-	bool cameraInside;
+	bool cameraInside1;
+	bool cameraInside2;
 
 	virtual Node* getContext();
+	
+	
 };
 
 class SphereAberration : public Object

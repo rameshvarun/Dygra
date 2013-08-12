@@ -1,76 +1,31 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="11.82" speed="1.0" theta="2.54" x="-6.81875212256" y="65.9846617837" z="37.5916822799"/>
-	<Point name="EndPoint" selected="False" uniform="False" x="25.2077018562" y="4.52421477282" z="12.5735770812"/>
-	<Box cast="False" max="10.4144226551, 0.877123923047, 18.1878928859" min="0.295966764534, 0.0, 3.69934013082" name="Box11" recieve="False" selected="False" uniform="False"/>
-	<SphereAberration cast="False" name="PlayerAberration" r="2.38582115832" recieve="False" reflectivity="0.0" scale="1.0, 1.0, 1.0" selected="False" uniform="True" x="1.0" y="1.0" z="-4.38766699855"/>
-	<Point name="PlayerSpawn" selected="True" uniform="False" x="5.17271471296" y="3.02133442316" z="11.3924654203"/>
-	<Box cast="False" max="21.4552519517, 7.35546479314, 18.155902606" min="20.4176184756, 0.0, 3.70015480609" name="Box9" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.4496554366, 0.877259970775, 18.1181262905" min="0.297362897417, 0.000136047728088, 12.7662880483" name="Box5" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.3652238776, 0.877123923047, 9.97138069544" min="0.297362897417, 0.0, 3.74059652293" name="Box4" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.4207004809, 0.877123923047, 18.155902606" min="10.7929243586, 0.0, 3.70015480609" name="Box7" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.6010157141, 7.36075044365, 18.1181262905" min="0.297362897417, -7.29045791894, 17.2543824625" name="Box6" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.9861327064, 7.36075044365, 4.66671560845" min="0.297362897417, -7.27591915113, 3.80297178044" name="Box1" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="1.30605427221, 7.35546479314, 18.155902606" min="0.268420796151, -7.12050747658, 3.70015480609" name="Box3" recieve="False" selected="False" uniform="False"/>
-	<Box cast="False" max="38.2874642265, -6.42818700482, 18.1878928859" min="0.295966764534, -7.30531092786, 3.69934013082" name="Box2" recieve="False" selected="False" uniform="False"/>
+	<Camera phi="-0.05" speed="0.81" theta="2.31" x="-20.8224020316" y="19.0480948442" z="26.7034227067"/>
+	<SpherePortal cast="False" name="SpherePortal3" r="1.3041877678" recieve="False" reflectivity="0.0" selected="False" uniform="False" x="1.92065042345" x2="1.92065042345" y="1.374406" y2="1.37440580016" z="22.5987911588" z2="53.7254559168"/>
+	<Sphere cast="True" name="Sphere4" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="8.15734728036" y="1" z="56.9374898243"/>
+	<Point name="Point1" selected="True" uniform="False" x="-3.68800978804" y="1.0" z="73.2731137905"/>
+	<Sphere cast="True" name="Sphere1" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="-2.96583017558" y="1" z="48.8535592426"/>
+	<Sphere cast="True" name="Sphere2" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="3.58068352987" y="1" z="47.712236866"/>
+	<Sphere cast="True" name="Sphere3" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="8.15734728036" y="1" z="50.3421093956"/>
+	<Point name="PlayerSpawn" selected="False" uniform="False" x="2.58713673113" y="1.0" z="28.8217130131"/>
+	<Sphere cast="True" name="Sphere6" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="-4.17460639167" y="1" z="54.7333584814"/>
+	<Plane c="0.0" name="Plane2" recieve="True" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
+	<Sphere cast="True" name="Sphere5" r="1" recieve="False" reflectivity="0.4" selected="False" uniform="False" x="0.916237332795" y="1" z="59.5893369402"/>
+	<Box cast="True" max="12.8179364034, 5.0, 44.8961364387" min="-9.38589216927, 0.0, 31.8968628413" name="Box5" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="21.2185596885, 5.0, 88.4072010012" min="-0.985268884193, 0.0, 61.6670333492" name="Box4" recieve="False" selected="False" uniform="False"/>
+	<Box cast="True" max="21.2054227355, 5.0, 61.9233419691" min="11.4984288411, 0.0, 11.7702833383" name="Box1" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="-6.79853998668, 5.0, 84.8094594817" min="-16.5055338811, 0.0, 11.7702833383" name="Box3" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="12.8179364034, 5.0, 13.0506877403" min="-9.38589216927, 0.0, 11.3077325651" name="Box2" recieve="False" selected="False" uniform="False"/>
 	<script>function preBuildShader()
-end
-
-helpText = [[Use the right mouse button
-to expand the space around you.]]
+end
 
 function load()
-	level:setPos( PlayerSpawn:getPos() )
-	control = true
-
-	level:showText(50, helpText, 24)
+	level:setPos( PlayerSpawn:getPos() )
 end
-
-scalex = 1.0
-scaley = 1.0
-scalez = 1.0
 
 function update(dt)
-	camPos = level:getPos()
-
-	if camPos.x &gt; EndPoint:getPos().x then
+	if level:getPos().z &gt; Point1:getPos().z then
 		done = true
-	end
-	
-	PlayerAberration:setScale( scalex, scaley, scalez )
-
-	if RightMouse then
-		PlayerAberration:setPos( camPos.x, camPos.y, camPos.z )
-
-		if scalex &gt; 0.2 then
-			scalex = scalex - dt
-		end
-
-		if scalez &gt; 0.2 then
-			scalez = scalez - dt
-		end
-	elseif LeftMouse then
-		PlayerAberration:setPos( camPos.x, camPos.y, camPos.z )
-
-		if scalex &lt; 5.0 then
-			scalex = scalex + dt
-		end
-
-		if scalez &lt; 5.0 then
-			scalez = scalez + dt
-		end
-	else
-		if scalex &gt; 1.0 then
-			scalex = scalex - dt
-		elseif scalex &lt; 1.0 then
-			scalex = scalex + dt
-		end
-
-		if scalez &gt; 1.0 then
-			scalez = scalez - dt
-		elseif scalez &lt; 1.0 then
-			scalez = scalez + dt
-		end
 	end
 end</script>
 </scene>

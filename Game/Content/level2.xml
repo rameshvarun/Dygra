@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <scene>
-	<Camera phi="28.38" speed="1.0" theta="2.26" x="10.012127931" y="8.5721924053" z="-7.74066617775"/>
-	<Point name="End" selected="False" uniform="False" x="-0.353355351734" y="1" z="-30.8233427232"/>
-	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -1.31551704462" min="-2.23648379256, -1.61386254675, -8.2236595349" name="BoxAberration2" recieve="False" scale="1.0, 1.0, 20.0" selected="True" uniform="True"/>
+	<Camera phi="29.76" speed="1.0" theta="2.09" x="1.43405591005" y="8.50565306023" z="-16.220376154"/>
+	<Point name="End" selected="False" uniform="False" x="-0.353355351734" y="1.0" z="-30.8233427232"/>
+	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -1.31551704462" min="-2.23648379256, -1.61386254675, -8.2236595349" name="BoxAberration2" recieve="False" scale="1.0, 1.0, 20.0" selected="False" uniform="True"/>
 	<BoxAberration cast="False" max="1.53489741698, 3.27088689751, -13.6246370989" min="-2.23648379256, -1.61386254675, -18.4529079754" name="BoxAberration3" recieve="False" scale="1.0, 1.0, 20.0" selected="False" uniform="True"/>
+	<Sphere cast="False" name="Sphere1" r="1" recieve="False" reflectivity="0.6" selected="False" uniform="False" x="3.78936496574" y="0.733882980154" z="-24.6862287483"/>
+	<Sphere cast="False" name="Sphere2" r="1" recieve="False" reflectivity="0.6" selected="True" uniform="False" x="-5.06516349631" y="0.733882980154" z="-24.6862287483"/>
 	<Point name="PlayerSpawn" selected="False" uniform="False" x="-0.753454556336" y="1.0" z="2.16680337715"/>
 	<Box cast="False" max="6.45421392214, 5.23061120491, -26.9224539668" min="1.09481134469, -1.51273635783, -33.2382101153" name="Box5" recieve="False" selected="False" uniform="False"/>
 	<Box cast="False" max="6.45421392214, 0.0215906361013, -18.6447271667" min="-7.79883146265, -1.51273635783, -33.2382101153" name="Box4" recieve="False" selected="False" uniform="False"/>
@@ -17,25 +19,23 @@ function load()
 	ab2_min = BoxAberration2:getMin()
 	ab2_max = BoxAberration2:getMax()
 	ab3_min = BoxAberration3:getMin()
-	ab3_max = BoxAberration3:getMax()
-
+	ab3_max = BoxAberration3:getMax()
+
 	level:setPos( PlayerSpawn:getPos() )
 end
 function update(dt)
 	time = time + dt
-
 	camPos = level:getPos()
 	BoxAberration2:setMin( ab2_min.x + 5*math.sin( time ), ab2_min.y, ab2_min.z )
 	BoxAberration2:setMax( ab2_max.x + 5*math.sin( time ), ab2_max.y, ab2_max.z )
 	BoxAberration3:setMin( ab3_min.x - 5*math.sin( time ), ab3_min.y, ab3_min.z )
 	BoxAberration3:setMax( ab3_max.x - 5*math.sin( time ), ab3_max.y, ab3_max.z )
-
 	if camPos.z &lt; End:getPos().z then
 		done = true
-	end
-
-	if camPos.y &lt; -20 then
-		level:setPos( PlayerSpawn:getPos() )
+	end
+
+	if camPos.y &lt; -20 then
+		level:setPos( PlayerSpawn:getPos() )
 	end
 end</script>
 </scene>

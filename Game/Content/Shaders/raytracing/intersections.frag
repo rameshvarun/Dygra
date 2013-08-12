@@ -45,7 +45,8 @@
 			float rm = 10000.0;
 			float r;
 			
-			{{SHADOWCODE}} //Does not work, due to lack of nested if's
+			//Does not work, due to lack of nested if's
+			{{object.shadowcode}}
 			
 			tm = t;
 			
@@ -69,7 +70,7 @@
 	{% endif %}
 	
 	{% if object.type == "sphereportal" %}
-		if (iSphere( {{object.name}}_1 , ro, rd, tm, t))
+		if (iSphere2( {{object.name}}_1 , ro, rd, tm, t))
 		{
 			vec3 pos = ro + t*rd;
 			
@@ -85,12 +86,12 @@
 			isNewRay = true;
 			
 			newRay = rd;
-			newPos = (pos - {{object.name}}_1.xyz)*0.99 + {{object.name}}_2.xyz;
+			newPos = (pos - {{object.name}}_1.xyz)*1.001 + {{object.name}}_2.xyz;
 			
 			reflect  = 1.0;
 		}
 
-		if (iSphere( {{object.name}}_2 , ro, rd, tm, t))
+		if (iSphere2( {{object.name}}_2 , ro, rd, tm, t))
 		{
 			vec3 pos = ro + t*rd;
 			vec3 nor = nSphere(pos, {{object.name}}_1 );
@@ -103,7 +104,7 @@
 			isNewRay = true;
 			
 			newRay = rd;
-			newPos = (pos - {{object.name}}_2.xyz)*0.99 + {{object.name}}_1.xyz;
+			newPos = (pos - {{object.name}}_2.xyz)*1.001 + {{object.name}}_1.xyz;
 			
 			reflect  = 1.0;
 		}

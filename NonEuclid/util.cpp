@@ -65,3 +65,8 @@ Vector3f cross( Vector3f left, Vector3f right )
 		left.x * right.y - left.y * right.x
 		);
 }
+
+float dot( Vector3f left, Vector3f right )
+{
+	return left.x*right.x + left.y*right.y + left.z*right.z;
+}

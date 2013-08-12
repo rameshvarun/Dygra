@@ -33,16 +33,16 @@ void Level::softRender()
 			sf::Color co(0, 0, 0, 255);
 
 			
-
+			
 			//Expose all level objects to the script
-			std::pair<const char*, Object*> kv; 
-			BOOST_FOREACH(kv, objects)
-			{
-				if( kv.second->type == "Plane" )
-				{
-					co.r = 255;
-				}
-			}
+			//std::pair<const char*, Object*> kv; 
+			//BOOST_FOREACH(kv, objects)
+			//{
+			//	if( kv.second->type == "Plane" )
+			//	{
+			co.r = 255;
+			//	}
+			//}
 
 			int position = (width * y + x)*4;
 			pixels[ position ] = co.r;
