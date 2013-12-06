@@ -1,15 +1,4 @@
-
-initialize( 800, 600, false)
-
-level1 = Level( "raytracing" )
-level1:LoadXML("level3.xml")
-level1:BuildShader()
-level1:run()
-
-
-level_list = { 'level1.xml', 'level2.xml', 'level3.xml' }
-
---[[
+level_list = { 'level1.xml', 'level2.xml', 'level3.xml', 'level4.xml' }
 
 require("wx")
 
@@ -115,5 +104,3 @@ frame:Centre()
 frame:Show(true)
 
 wx.wxGetApp():MainLoop()
-
-]]--

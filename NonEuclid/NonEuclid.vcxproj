@@ -39,14 +39,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SFML-2.0-rc\include;F:\Libraries\physfs-2.0.3\;F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\luajit\src;F:\Libraries\luabind-0.9.1;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Debug;C:\Libraries\SFML-2.0-rc\lib;F:\Libraries\luajit\src;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Libraries\SFML-2.1-32\include;D:\Libraries\physfs-2.0.3;D:\Libraries\boost_1_55_0b1;D:\Libraries\LuaJIT-2.0.2\src;D:\Libraries\luabind-0.9.1;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libraries\boost_1_55_0b1\lib32-msvc-10.0;D:\Libraries\physfs-2.0.3\bin\Debug;D:\Libraries\SFML-2.1-32\lib;D:\Libraries\LuaJIT-2.0.2\src;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>F:\Boost\msvc_10_32\boost_1_54_0;F:\Libraries\physfs-2.0.3;F:\Libraries\luabind-0.9.1\;C:\Libraries\SFML-2.0-rc\include;F:\Libraries\luajit\src;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Boost\msvc_10_32\boost_1_54_0\lib32-msvc-10.0;F:\Libraries\physfs-2.0.3\bin\Release;C:\Libraries\SFML-2.0-rc\lib;F:\Libraries\luajit\src;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Libraries\boost_1_55_0b1;D:\Libraries\physfs-2.0.3;D:\Libraries\luabind-0.9.1;D:\Libraries\SFML-2.1-32\include;D:\Libraries\LuaJIT-2.0.2\src;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libraries\boost_1_55_0b1\lib32-msvc-10.0;D:\Libraries\physfs-2.0.3\bin\Release;D:\Libraries\SFML-2.1-32\lib;D:\Libraries\LuaJIT-2.0.2\src;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Game\$(Configuration)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

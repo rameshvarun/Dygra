@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<scene>
+	<Camera phi="10.24" speed="0.15544223163" theta="1.49" x="11.3551102084" y="4.29812537225" z="15.046645855"/>
+	<Box cast="False" max="-0.767561516532, 2.06217474999, 2.65912179492" min="-2.26436646845, 0.0, 1.10578945543" name="Box3" recieve="False" selected="False" uniform="False"/>
+	<BoxAberration cast="False" max="1.87969014865, 0.783542581828, 2.47301235986" min="0.432696577132, -2.32397439302, 1.14178374349" name="BoxAberration1" recieve="False" scale="0.5, 1.0, 0.5" selected="False" uniform="False"/>
+	<BoxAberration cast="False" max="5.34209829526, 6.36473451511, 5.63277969718" min="-2.7891341286, 0.0, -2.24496172854" name="BoxAberration2" recieve="False" scale="0.1, 0.05, 0.1" selected="True" uniform="False"/>
+	<Plane c="0.0" name="Plane1" recieve="True" reflectivity="0.0" selected="False" uniform="False" x="0.0" y="1.0" z="0.0"/>
+	<Point name="PlayerSpawn" selected="False" uniform="False" x="14.0186331462" y="1.0" z="1.0"/>
+	<Box cast="False" max="1.89364632425, 0.534902374264, 1.20419227085" min="0.396841372331, 0.0, 1.09583115857" name="Box9" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="1.28150006526, 4.00883541967, 1.98098403012" min="1.18129996812, 2.85467110972, 1.89545573495" name="Box8" recieve="False" selected="False" uniform="True"/>
+	<Box cast="False" max="0.477769011649, 0.308796176507, 2.65912179492" min="0.396501419261, 0.0, 1.10578945543" name="Box5" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="1.89364632425, 2.06217474999, 5.15248737765" min="0.396841372331, 0.0, 3.59915503816" name="Box7" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="1.89364632425, 2.06217474999, 2.65912179492" min="0.396841372331, 0.228509207147, 1.10578945543" name="Box2" recieve="False" selected="False" uniform="True"/>
+	<Box cast="False" max="1.55230261874, 2.93447325359, 2.29163055849" min="0.870142271216, 1.78030894364, 1.62987375667" name="Box11" recieve="False" selected="False" uniform="True"/>
+	<Box cast="False" max="1.93765684538, 2.06217474999, -0.0129497637249" min="0.440851893456, 0.0, -1.56628210321" name="Box10" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="1.89633923725, 0.308796176507, 2.65912179492" min="1.81507164486, 0.0, 1.10578945543" name="Box13" recieve="False" selected="False" uniform="False"/>
+	<Box cast="False" max="4.54197136581, 2.06217474999, 2.65912179492" min="3.04516641389, 0.0, 1.10578945543" name="Box12" recieve="False" selected="False" uniform="False"/>
+	<script>function preBuildShader()
+end
+function load()
+	level:setPos( PlayerSpawn:getPos() )
+end
+function update(dt)
+end</script>
+</scene>

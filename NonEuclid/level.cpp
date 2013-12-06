@@ -16,6 +16,8 @@ using namespace templating;
 
 #include <boost/foreach.hpp>
 
+#define MAX_TIMESTEP 1.0/30.0
+
 Level::Level(std::string rendererType)
 {
 	renderer = rendererType;
@@ -225,6 +227,7 @@ void Level::LoadXML(const char* filename)
 		std::vector<std::string> max = split( box->Attribute("max"), ',');
 
 		bool cast = std::string( box->Attribute("cast") ).compare("True") == 0;
+		bool uniform = std::string( box->Attribute("uniform") ).compare("True") == 0;
 
 		Box *obj = new Box(
 			name,
@@ -234,7 +237,7 @@ void Level::LoadXML(const char* filename)
 			atof(max[0].c_str()),
 			atof(max[1].c_str()),
 			atof(max[2].c_str()),
-			box->BoolAttribute("uniform"),
+			uniform,
 			cast,
 			box->BoolAttribute("recieve")
 			);
@@ -503,6 +506,10 @@ std::string Level::run()
 
 		//Update
 		float dt = clock.getElapsedTime().asSeconds();
+
+		if(dt > MAX_TIMESTEP)
+			dt = MAX_TIMESTEP;
+
 		clock.restart();
 
 		textTime -= dt;
@@ -672,7 +679,7 @@ std::string Level::run()
 
 		//Collision detection
 		float PLAYER_WIDTH = 0.5;
-		float STEP_HEIGHT = 0.5;
+		float STEP_HEIGHT = 0.5*scaley;
 		float PLAYER_HEIGHT = 1*scaley;
 
 		Vector3f stepPos = pos - Vector3f(0, PLAYER_HEIGHT - STEP_HEIGHT, 0);
@@ -723,7 +730,7 @@ std::string Level::run()
 		else
 		{
 			velY -= GRAVITY*dt;
-			pos.y += velY*dt;
+			pos.y += velY*dt*scaley;
 		}
 
 		if(result > 0 && result < PLAYER_HEIGHT*1.01)

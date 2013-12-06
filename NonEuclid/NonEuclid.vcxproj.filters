@@ -39,11 +39,14 @@
     <ClCompile Include="templatenode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\link_compatibility.cpp">
-      <Filter>Source Files\luabind</Filter>
+    <ClCompile Include="scripting.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\object_rep.cpp">
-      <Filter>Source Files\luabind</Filter>
+    <ClCompile Include="graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="softwarerenderer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\open.cpp">
       <Filter>Source Files\luabind</Filter>
@@ -90,14 +93,11 @@
     <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\inheritance.cpp">
       <Filter>Source Files\luabind</Filter>
     </ClCompile>
-    <ClCompile Include="scripting.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\link_compatibility.cpp">
+      <Filter>Source Files\luabind</Filter>
     </ClCompile>
-    <ClCompile Include="graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="softwarerenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\Libraries\luabind-0.9.1\src\object_rep.cpp">
+      <Filter>Source Files\luabind</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
